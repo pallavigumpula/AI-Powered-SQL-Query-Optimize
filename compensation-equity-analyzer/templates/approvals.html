@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block title %}Approval Management Queue{% endblock %}
+{% block header_title %}Approval Workflow & Authorization Queue{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Role Notice Banner -->
+  <div class="alert alert-info border-0 shadow-sm rounded-3 mb-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div class="d-flex align-items-center gap-3">
+      <i class="bi bi-shield-check fs-3"></i>
+      <div>
+        <h6 class="fw-bold mb-0">Active Persona: {{ current_user.full_name }} ({{ current_user.role }})</h6>
+        <small class="text-secondary">Enforcing enterprise separation of duties: Managers submit review comments &bull; HR Partners approve/reject &bull; Admins implement.</small>
+      </div>
+    </div>
+    <span class="badge bg-primary px-3 py-2">Workflow State Machine Active</span>
+  </div>
+
+  <!-- Stage 1: Pending Manager Review -->
+  <div class="table-card mb-4">
+    <div class="table-header bg-light">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge badge-soft-warning fs-6">1</span>
+        <h6 class="fw-bold mb-0">Pending Manager Review ({{ pending_manager|length }})</h6>
+      </div>
+      <span class="text-muted small">Requires Manager Evaluation & Comments</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Proposal ID</th>
+            <th>Employee</th>
+            <th>Current Salary</th>
+            <th>Proposed Salary</th>
+            <th>Delta</th>
+            <th>Reason</th>
+            <th>Submitted By</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pending_manager %}
+          <tr>
+            <td class="fw-bold">{{ p.id }}</td>
+            <td>
+              <a href="/employees/{{ p.employee_id }}" class="fw-semibold text-decoration-none">{{ p.employee.full_name if p.employee else p.employee_id }}</a>
+              <div class="text-muted small">{{ p.employee.role.name if p.employee and p.employee.role else '' }}</div>
+            </td>
+            <td>${{ "{:,.2f}".format(p.current_salary) }}</td>
+            <td class="fw-bold text-primary">${{ "{:,.2f}".format(p.proposed_salary) }}</td>
+            <td><span class="badge badge-soft-success">+{{ p.percentage_change }}%</span></td>
+            <td class="small">{{ p.reason }}</td>
+            <td class="small text-secondary">{{ p.submitted_by }}</td>
+            <td>
+              <form action="/approvals/action" method="POST" class="d-inline">
+                <input type="hidden" name="proposal_id" value="{{ p.id }}">
+                <input type="hidden" name="action" value="SUBMIT_HR">
+                <input type="hidden" name="comments" value="Manager reviewed and endorsed proposal to HR Partner.">
+                <button type="submit" class="btn btn-sm btn-primary py-1 px-3">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Endorse to HR
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center text-muted py-3">No proposals currently awaiting manager endorsement.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Stage 2: Pending HR Partner Review -->
+  <div class="table-card mb-4 border-primary">
+    <div class="table-header bg-primary-subtle">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-primary text-white fs-6">2</span>
+        <h6 class="fw-bold mb-0 text-primary">Pending HR Partner Review & Authorization ({{ pending_hr|length }})</h6>
+      </div>
+      <span class="badge badge-soft-primary">HR Partner Action Required</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Proposal ID</th>
+            <th>Employee</th>
+            <th>Current Salary</th>
+            <th>Proposed Salary</th>
+            <th>Delta</th>
+            <th>Reason & Supporting Evidence</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pending_hr %}
+          <tr>
+            <td class="fw-bold">{{ p.id }}</td>
+            <td>
+              <a href="/employees/{{ p.employee_id }}" class="fw-semibold text-decoration-none">{{ p.employee.full_name if p.employee else p.employee_id }}</a>
+              <div class="text-muted small">{{ p.employee.role.name if p.employee and p.employee.role else '' }}</div>
+            </td>
+            <td>${{ "{:,.2f}".format(p.current_salary) }}</td>
+            <td class="fw-bold text-primary">${{ "{:,.2f}".format(p.proposed_salary) }}</td>
+            <td><span class="badge badge-soft-success">+{{ p.percentage_change }}%</span></td>
+            <td class="small" style="max-width: 320px;">
+              <strong>{{ p.reason }}:</strong> {{ p.supporting_evidence }}
+            </td>
+            <td>
+              <div class="d-flex gap-1 flex-wrap">
+                <!-- Approve Button -->
+                <form action="/approvals/action" method="POST" class="d-inline">
+                  <input type="hidden" name="proposal_id" value="{{ p.id }}">
+                  <input type="hidden" name="action" value="APPROVE">
+                  <input type="hidden" name="comments" value="Approved by HR Partner following committee review.">
+                  <button type="submit" class="btn btn-sm btn-success py-1 px-2" title="Approve Adjustment">
+                    <i class="bi bi-check-lg"></i> Approve
+                  </button>
+                </form>
+
+                <!-- Reject Button -->
+                <form action="/approvals/action" method="POST" class="d-inline">
+                  <input type="hidden" name="proposal_id" value="{{ p.id }}">
+                  <input type="hidden" name="action" value="REJECT">
+                  <input type="hidden" name="comments" value="Rejected by HR Partner due to budgetary cap.">
+                  <button type="submit" class="btn btn-sm btn-outline-danger py-1 px-2" title="Reject Adjustment">
+                    <i class="bi bi-x-lg"></i> Reject
+                  </button>
+                </form>
+
+                <!-- Request Info / Hold Button -->
+                <form action="/approvals/action" method="POST" class="d-inline">
+                  <input type="hidden" name="proposal_id" value="{{ p.id }}">
+                  <input type="hidden" name="action" value="REQUEST_INFO">
+                  <input type="hidden" name="comments" value="Placed on hold pending additional performance documentation.">
+                  <button type="submit" class="btn btn-sm btn-outline-secondary py-1 px-2" title="Place On Hold">
+                    <i class="bi bi-pause"></i> Hold
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="7" class="text-center text-muted py-3">No proposals currently awaiting HR Partner review.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Stage 3: Approved & Ready for Implementation -->
+  <div class="table-card mb-4">
+    <div class="table-header bg-success-subtle">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-success text-white fs-6">3</span>
+        <h6 class="fw-bold mb-0 text-success">Approved Proposals &bull; Ready to Implement ({{ approved|length }})</h6>
+      </div>
+      <span class="badge badge-soft-success">Payroll Event Implementation</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Proposal ID</th>
+            <th>Employee</th>
+            <th>Approved Salary</th>
+            <th>Delta</th>
+            <th>Effective Date</th>
+            <th>Approved By</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in approved %}
+          <tr>
+            <td class="fw-bold">{{ p.id }}</td>
+            <td>
+              <a href="/employees/{{ p.employee_id }}" class="fw-semibold text-decoration-none">{{ p.employee.full_name if p.employee else p.employee_id }}</a>
+            </td>
+            <td class="fw-bold text-success">${{ "{:,.2f}".format(p.proposed_salary) }}</td>
+            <td><span class="badge badge-soft-success">+{{ p.percentage_change }}%</span></td>
+            <td>{{ p.effective_date.strftime('%B %d, %Y') }}</td>
+            <td class="small">{{ p.reviewed_by }}</td>
+            <td>
+              <form action="/approvals/action" method="POST" class="d-inline">
+                <input type="hidden" name="proposal_id" value="{{ p.id }}">
+                <input type="hidden" name="action" value="IMPLEMENT">
+                <input type="hidden" name="comments" value="Implemented approved adjustment; created new salary event.">
+                <button type="submit" class="btn btn-sm btn-primary py-1 px-3">
+                  <i class="bi bi-play-circle-fill me-1"></i> Implement Now
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="7" class="text-center text-muted py-3">No proposals currently awaiting payroll implementation.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Completed History -->
+  <div class="table-card">
+    <div class="table-header">
+      <h6 class="fw-bold mb-0">Completed & Implemented Adjustments</h6>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Proposal ID</th>
+            <th>Employee</th>
+            <th>Final Salary</th>
+            <th>Status</th>
+            <th>Reviewed By</th>
+            <th>Completed At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in completed %}
+          <tr>
+            <td class="fw-bold">{{ p.id }}</td>
+            <td>{{ p.employee.full_name if p.employee else p.employee_id }}</td>
+            <td class="fw-bold">${{ "{:,.2f}".format(p.proposed_salary) }}</td>
+            <td>
+              <span class="badge {% if p.status == 'Implemented' %}bg-success text-white{% else %}badge-soft-danger{% endif %}">
+                {{ p.status }}
+              </span>
+            </td>
+            <td class="small">{{ p.reviewed_by }}</td>
+            <td>{{ p.updated_at.strftime('%b %d, %Y') }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="6" class="text-center text-muted py-3">No completed historical adjustments.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

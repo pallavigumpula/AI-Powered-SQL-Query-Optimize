@@ -1,0 +1,17 @@
+id,code,name,department,job_family
+ROLE-SWE,SWE,Software Engineer,Engineering,Engineering
+ROLE-QA,QA,Quality Assurance Engineer,Engineering,Engineering
+ROLE-DEVOPS,DEVOPS,DevOps & Cloud Engineer,Engineering,Engineering
+ROLE-DATAENG,DATAENG,Data Engineer,Engineering,Engineering
+ROLE-MLE,MLE,Machine Learning Engineer,AI Research,AI & Data
+ROLE-AIRES,AIRES,AI Research Scientist,AI Research,AI & Data
+ROLE-FDAIE,FDAIE,Forward Deployed AI Engineer,AI Research,AI & Data
+ROLE-DATASCI,DATASCI,Data Scientist,AI Research,AI & Data
+ROLE-PM,PM,Product Manager,Product,Product
+ROLE-PRODDES,PRODDES,Product Designer,Product,Product
+ROLE-UXRES,UXRES,UX Researcher,Product,Product
+ROLE-HRBP,HRBP,HR Business Partner,People & HR,Operations
+ROLE-TA,TA,Talent Acquisition Specialist,People & HR,Operations
+ROLE-FIN,FIN,Financial Analyst,Finance,Operations
+ROLE-AE,AE,Account Executive,Sales,Operations
+ROLE-CSM,CSM,Customer Success Manager,Sales,Operations

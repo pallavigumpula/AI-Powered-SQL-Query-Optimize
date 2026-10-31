@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}Reports & Data Exports{% endblock %}
+{% block header_title %}Executive Compensation Equity Report & Exports{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Action Bar & Print -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+      <h5 class="fw-bold mb-1">Executive Compensation Equity Report</h5>
+      <p class="text-secondary small mb-0">Official workforce audit, disparity review recommendations, and download center.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-printer me-1"></i> Print / Save as PDF
+      </button>
+      <a href="/api/v1/export/dataset/json" class="btn btn-primary btn-sm">
+        <i class="bi bi-file-earmark-code me-1"></i> Download Complete Dataset (JSON)
+      </a>
+    </div>
+  </div>
+
+  <!-- Export Hub Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3 col-sm-6">
+      <div class="card border-0 shadow-sm rounded-3 p-3 text-center">
+        <i class="bi bi-people text-primary fs-3 mb-2"></i>
+        <h6 class="fw-bold mb-1">Employees CSV</h6>
+        <p class="text-muted small mb-3">Active workforce metadata</p>
+        <a href="/api/v1/export/employees/csv" class="btn btn-sm btn-outline-primary w-100">Download CSV</a>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card border-0 shadow-sm rounded-3 p-3 text-center">
+        <i class="bi bi-clock-history text-success fs-3 mb-2"></i>
+        <h6 class="fw-bold mb-1">Salary History CSV</h6>
+        <p class="text-muted small mb-3">36-Month compensation records</p>
+        <a href="/api/v1/export/salary-history/csv" class="btn btn-sm btn-outline-success w-100">Download CSV</a>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card border-0 shadow-sm rounded-3 p-3 text-center">
+        <i class="bi bi-bar-chart-steps text-info fs-3 mb-2"></i>
+        <h6 class="fw-bold mb-1">Compensation Bands CSV</h6>
+        <p class="text-muted small mb-3">Min, Mid, Max tier ranges</p>
+        <a href="/api/v1/export/bands/csv" class="btn btn-sm btn-outline-info w-100">Download CSV</a>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card border-0 shadow-sm rounded-3 p-3 text-center">
+        <i class="bi bi-flag text-danger fs-3 mb-2"></i>
+        <h6 class="fw-bold mb-1">Disparity Audit CSV</h6>
+        <p class="text-muted small mb-3">Detected disparity cases & evidence</p>
+        <a href="/api/v1/export/disparities/csv" class="btn btn-sm btn-outline-danger w-100">Download CSV</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary Exports Row -->
+  <div class="card border-0 shadow-sm rounded-3 p-3 mb-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div>
+        <h6 class="fw-bold mb-0">System Artifacts & Isolated Datasets</h6>
+        <small class="text-secondary">Ground truth labels, SQL database seed files, and proposals.</small>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="/api/v1/export/proposals/csv" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-file-earmark-text"></i> Proposals CSV
+        </a>
+        <a href="/api/v1/export/ground-truth/csv" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-file-earmark-check"></i> Ground Truth CSV
+        </a>
+        <a href="/api/v1/export/ground-truth/json" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-file-code"></i> Ground Truth JSON
+        </a>
+        <a href="/api/v1/export/seed/sql" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-database"></i> MySQL Seed SQL
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Summary Document Preview (Print-Friendly) -->
+  <div class="card border-0 shadow-sm rounded-3 p-4 p-md-5 mb-4 bg-white" id="printableReport">
+    <div class="border-bottom pb-4 mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h3 class="fw-bold text-dark mb-1">YottaFlex.ai Compensation Equity Report</h3>
+          <p class="text-muted mb-0">Annual Disparity Audit & Equal Pay Compliance Briefing &bull; As of {{ generated_date }}</p>
+        </div>
+        <div class="text-end">
+          <span class="badge badge-soft-info fs-6">CONFIDENTIAL - HR COMMITTEE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <div class="mb-4">
+      <h5 class="fw-bold text-dark border-bottom pb-2">1. Executive Overview</h5>
+      <p class="text-secondary">
+        This audit evaluates compensation parity across <strong>{{ total_employees }} global employees</strong> covering 
+        Engineering, AI Research, Product, and Operations departments. The analysis normalizes all figures to full-time equivalent (FTE 1.0) 
+        and converts foreign currencies into base USD using effective-dated exchange rates.
+      </p>
+    </div>
+
+    <!-- 2. Departmental Parity Breakdown -->
+    <div class="mb-4">
+      <h5 class="fw-bold text-dark border-bottom pb-2">2. Departmental Parity Index</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="table-light">
+            <tr>
+              <th>Department</th>
+              <th>Headcount</th>
+              <th>Average Normalized Salary</th>
+              <th>Average Compa-Ratio</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in departments %}
+            <tr>
+              <td class="fw-bold">{{ d.name }}</td>
+              <td>{{ d.headcount }}</td>
+              <td>${{ "{:,.2f}".format(d.avg_salary) }}</td>
+              <td><strong>{{ d.avg_compa_ratio }}%</strong></td>
+              <td>
+                {% if d.avg_compa_ratio >= 95 and d.avg_compa_ratio <= 105 %}
+                <span class="badge badge-soft-success">Balanced</span>
+                {% elif d.avg_compa_ratio < 95 %}
+                <span class="badge badge-soft-warning">Below Midpoint</span>
+                {% else %}
+                <span class="badge badge-soft-info">Above Midpoint</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. Key Findings & Identified Anomalies -->
+    <div class="mb-4">
+      <h5 class="fw-bold text-dark border-bottom pb-2">3. Priority Disparity Cases (Human Review Recommended)</h5>
+      <p class="text-secondary small">
+        In accordance with algorithmic fairness standards, the system never declares discrimination automatically based solely on salary variance. 
+        Cases are flagged for committee review where unexplained gaps exceed 15% relative to comparable peer cohorts.
+      </p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="table-light">
+            <tr>
+              <th>Employee ID</th>
+              <th>Role & Level</th>
+              <th>Location</th>
+              <th>Salary</th>
+              <th>Peer Median</th>
+              <th>Variance</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in disparities[:10] %}
+            <tr>
+              <td class="fw-bold">{{ d.employee_id }}</td>
+              <td>{{ d.role }} ({{ d.level }})</td>
+              <td>{{ d.location }}</td>
+              <td>${{ "{:,.2f}".format(d.normalized_salary) if d.normalized_salary else 'N/A' }}</td>
+              <td>${{ "{:,.2f}".format(d.group_median_salary) if d.group_median_salary else 'N/A' }}</td>
+              <td>
+                <span class="text-danger fw-bold">{{ d.percentage_difference }}%</span>
+              </td>
+              <td class="small">{{ d.review_recommendation }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. Mandatory Edge Cases -->
+    <div class="mb-4">
+      <h5 class="fw-bold text-dark border-bottom pb-2">4. Data Quality & Edge Case Exceptions Logged</h5>
+      <ul class="list-group list-group-flush small">
+        {% for issue in open_issues %}
+        <li class="list-group-item d-flex justify-content-between px-0">
+          <div>
+            <strong>{{ issue.issue_type }}</strong> &bull; <span class="badge badge-soft-secondary">{{ issue.ground_truth_label }}</span>
+            <div class="text-secondary">{{ issue.description }}</div>
+          </div>
+          <span class="badge bg-danger">{{ issue.status }}</span>
+        </li>
+        {% else %}
+        <li class="list-group-item text-muted">All active edge case exceptions have been resolved.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Overview{% endblock %}
+{% block header_title %}Executive Compensation Equity Overview{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Welcome Banner -->
+  <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+    <div>
+      <h4 class="fw-bold text-dark mb-1">Workforce Compensation Health</h4>
+      <p class="text-secondary small mb-0">Real-time parity benchmarking, band compliance tracking, and explainable anomaly detection.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="/disparity-detection" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-search"></i> Inspect Disparities
+      </a>
+      <a href="/data-quality" class="btn btn-outline-danger btn-sm">
+        <i class="bi bi-shield-exclamation"></i> Edge Case Exceptions ({{ kpis.exceptions_count }})
+      </a>
+    </div>
+  </div>
+
+  <!-- 8 KPI Cards Grid -->
+  <div class="row g-3 mb-4">
+    <!-- 1. Total Employees -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card accent">
+        <div class="kpi-label">Total Employees</div>
+        <div class="kpi-value">{{ "{:,}".format(kpis.total_employees) }}</div>
+        <div class="kpi-sub"><i class="bi bi-people text-primary me-1"></i> Active Global Workforce</div>
+      </div>
+    </div>
+
+    <!-- 2. Within Band -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card success">
+        <div class="kpi-label">Within Salary Band</div>
+        <div class="kpi-value text-success">{{ "{:,}".format(kpis.within_band) }}</div>
+        <div class="kpi-sub">
+          <i class="bi bi-check-circle-fill text-success me-1"></i>
+          {{ "%.1f"|format((kpis.within_band / kpis.total_employees * 100) if kpis.total_employees else 0) }}% Band Alignment
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Below Band -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card warning">
+        <div class="kpi-label">Below Salary Band</div>
+        <div class="kpi-value text-warning">{{ "{:,}".format(kpis.below_band) }}</div>
+        <div class="kpi-sub"><i class="bi bi-arrow-down-right-circle text-warning me-1"></i> Attrition & Equity Risk</div>
+      </div>
+    </div>
+
+    <!-- 4. Above Band -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card danger">
+        <div class="kpi-label">Above Salary Band</div>
+        <div class="kpi-value text-danger">{{ "{:,}".format(kpis.above_band) }}</div>
+        <div class="kpi-sub"><i class="bi bi-arrow-up-right-circle text-danger me-1"></i> Band Ceiling Caps</div>
+      </div>
+    </div>
+
+    <!-- 5. Disparities Detected -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card danger">
+        <div class="kpi-label">Disparities Flagged</div>
+        <div class="kpi-value text-danger">{{ kpis.disparities_detected }}</div>
+        <div class="kpi-sub"><i class="bi bi-flag-fill text-danger me-1"></i> Human HR Review Required</div>
+      </div>
+    </div>
+
+    <!-- 6. Pending HR Reviews -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card warning">
+        <div class="kpi-label">Pending HR Reviews</div>
+        <div class="kpi-value text-warning">{{ kpis.pending_hr_reviews }}</div>
+        <div class="kpi-sub"><i class="bi bi-hourglass-split text-warning me-1"></i> Active Proposals in Queue</div>
+      </div>
+    </div>
+
+    <!-- 7. Data Quality Exceptions -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card danger">
+        <div class="kpi-label">Data Quality Exceptions</div>
+        <div class="kpi-value text-danger">{{ kpis.exceptions_count }}</div>
+        <div class="kpi-sub"><i class="bi bi-shield-x text-danger me-1"></i> 5 Mandatory Edge Cases</div>
+      </div>
+    </div>
+
+    <!-- 8. Approved Adjustments -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card success">
+        <div class="kpi-label">Approved Adjustments</div>
+        <div class="kpi-value text-success">{{ kpis.approved_adjustments }}</div>
+        <div class="kpi-sub"><i class="bi bi-patch-check-fill text-success me-1"></i> Implemented & Reconciled</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8 Charts Grid -->
+  <div class="row g-4 mb-4">
+    <!-- Chart 1: Salary Distribution -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>1. Employee Salary Distribution (USD)</h6>
+          <span class="badge badge-soft-info">Normalized FTE 1.0</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="salaryDistChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 2: Monthly Salary Trends -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>2. Monthly Average Salary Trends (36 Months)</h6>
+          <span class="badge badge-soft-success">2024 - 2026</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="monthlyTrendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 3: Compensation by Role -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>3. Average Compensation by Role</h6>
+          <span class="badge badge-soft-secondary">USD Base</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="roleCompChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 4: Compensation by Level -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>4. Compensation Progression by Level (L1 - L6)</h6>
+          <span class="badge badge-soft-secondary">Career Ladder</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="levelCompChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 5: Salary Band Comparison -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>5. Salary Band Comparison (Min / Mid / Max vs Actual)</h6>
+          <span class="badge badge-soft-info">Benchmark Matrix</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="bandCompChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 6: Disparity Distribution -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>6. Disparity Variance Distribution (% vs Peer Median)</h6>
+          <span class="badge badge-soft-warning">Disparity Spread</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="disparityDistChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 7: Compensation by Location -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>7. Geographic Market Compensation</h6>
+          <span class="badge badge-soft-secondary">Global Hubs</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="locationCompChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart 8: Review Proposal Status -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h6>8. Review Proposal Pipeline Status</h6>
+          <span class="badge badge-soft-info">Governance Flow</span>
+        </div>
+        <div class="chart-body">
+          <canvas id="proposalStatusChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Priority Disparities Table Preview -->
+  <div class="table-card">
+    <div class="table-header">
+      <div>
+        <h6 class="fw-bold mb-1">Top Unexplained Compensation Disparities (Flagged for HR Review)</h6>
+        <p class="text-secondary small mb-0">Statistically significant pay gaps relative to role, level, location, performance, and tenure.</p>
+      </div>
+      <a href="/disparity-detection" class="btn btn-sm btn-outline-primary">View All Disparities &rarr;</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Role & Level</th>
+            <th>Location</th>
+            <th>Actual Salary</th>
+            <th>Peer Median</th>
+            <th>Variance</th>
+            <th>Performance</th>
+            <th>Tenure</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in disparities_preview %}
+          <tr>
+            <td>
+              <a href="/employees/{{ d.employee_id }}" class="fw-bold text-decoration-none">
+                {{ d.employee_name }}
+              </a>
+              <div class="text-muted small">{{ d.employee_id }}</div>
+            </td>
+            <td>
+              <div>{{ d.role }}</div>
+              <span class="badge badge-soft-secondary">{{ d.level }}</span>
+            </td>
+            <td>{{ d.location }}</td>
+            <td class="fw-bold">${{ "{:,.2f}".format(d.normalized_salary) }}</td>
+            <td class="text-secondary">${{ "{:,.2f}".format(d.group_median_salary) }}</td>
+            <td>
+              {% if d.percentage_difference < 0 %}
+              <span class="badge badge-soft-danger">{{ d.percentage_difference }}%</span>
+              {% else %}
+              <span class="badge badge-soft-warning">+{{ d.percentage_difference }}%</span>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge badge-soft-info">{{ d.performance_rating }}/5 &bull; {{ d.performance_label }}</span>
+            </td>
+            <td>{{ d.tenure_years }} yrs</td>
+            <td>
+              <a href="/analysis/{{ d.employee_id }}" class="btn btn-sm btn-outline-primary">Investigate</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  // 1. Salary Distribution Chart
+  new Chart(document.getElementById('salaryDistChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.salary_dist.labels | tojson }},
+      datasets: [{
+        label: 'Employees',
+        data: {{ charts.salary_dist.counts | tojson }},
+        backgroundColor: '#0284c7',
+        borderRadius: 6
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 2. Monthly Trend Chart
+  new Chart(document.getElementById('monthlyTrendChart'), {
+    type: 'line',
+    data: {
+      labels: {{ charts.monthly_trends.labels | tojson }},
+      datasets: [{
+        label: 'Average Salary ($)',
+        data: {{ charts.monthly_trends.values | tojson }},
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 3. Compensation by Role
+  new Chart(document.getElementById('roleCompChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.role_comp.labels | tojson }},
+      datasets: [{
+        label: 'Average Salary ($)',
+        data: {{ charts.role_comp.values | tojson }},
+        backgroundColor: '#2563eb',
+        borderRadius: 4
+      }]
+    },
+    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+  });
+
+  // 4. Compensation by Level
+  new Chart(document.getElementById('levelCompChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.level_comp.labels | tojson }},
+      datasets: [{
+        label: 'Average Salary ($)',
+        data: {{ charts.level_comp.values | tojson }},
+        backgroundColor: '#6366f1',
+        borderRadius: 6
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 5. Band Comparison
+  new Chart(document.getElementById('bandCompChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.band_comp.labels | tojson }},
+      datasets: [
+        { label: 'Band Min', data: {{ charts.band_comp.min | tojson }}, backgroundColor: '#94a3b8' },
+        { label: 'Band Mid', data: {{ charts.band_comp.mid | tojson }}, backgroundColor: '#38bdf8' },
+        { label: 'Band Max', data: {{ charts.band_comp.max | tojson }}, backgroundColor: '#64748b' },
+        { label: 'Actual Avg', data: {{ charts.band_comp.actual | tojson }}, backgroundColor: '#0284c7' }
+      ]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 6. Disparity Variance Distribution
+  new Chart(document.getElementById('disparityDistChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.disparity_dist.labels | tojson }},
+      datasets: [{
+        label: 'Disparities Count',
+        data: {{ charts.disparity_dist.counts | tojson }},
+        backgroundColor: '#f59e0b',
+        borderRadius: 6
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 7. Compensation by Location
+  new Chart(document.getElementById('locationCompChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ charts.location_comp.labels | tojson }},
+      datasets: [{
+        label: 'Average Salary ($)',
+        data: {{ charts.location_comp.values | tojson }},
+        backgroundColor: '#06b6d4',
+        borderRadius: 6
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+
+  // 8. Proposal Status Pipeline
+  new Chart(document.getElementById('proposalStatusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: {{ charts.proposal_status.labels | tojson }},
+      datasets: [{
+        data: {{ charts.proposal_status.counts | tojson }},
+        backgroundColor: ['#94a3b8', '#f59e0b', '#0284c7', '#10b981', '#ef4444', '#059669', '#64748b']
+      }]
+    },
+    options: { responsive: true, maintainAspectRatio: false }
+  });
+</script>
+{% endblock %}

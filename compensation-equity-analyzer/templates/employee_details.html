@@ -1,0 +1,424 @@
+{% extends "base.html" %}
+
+{% block title %}{{ employee.full_name }} - Employee Dossier{% endblock %}
+{% block header_title %}Employee Compensation Profile{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Header Banner -->
+  <div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">
+            {{ employee.first_name[0] }}{{ employee.last_name[0] }}
+          </div>
+          <div>
+            <h4 class="fw-bold mb-1">{{ employee.full_name }}</h4>
+            <div class="text-secondary small">
+              <span class="fw-semibold text-dark">{{ employee.id }}</span> &bull; 
+              {{ employee.email }} &bull; 
+              Joined {{ employee.hire_date.strftime('%B %d, %Y') }}
+            </div>
+            <div class="mt-2 d-flex gap-2 flex-wrap">
+              <span class="badge badge-soft-info">{{ employee.role.name }}</span>
+              <span class="badge badge-soft-secondary">{{ employee.level.code }} - {{ employee.level.name }}</span>
+              <span class="badge badge-soft-secondary"><i class="bi bi-geo-alt"></i> {{ employee.location.city }}, {{ employee.location.country }}</span>
+              <span class="badge badge-soft-success">{{ employee.status }}</span>
+              {% if employee.fte < 1.0 %}
+              <span class="badge badge-soft-warning">{{ employee.fte }} FTE (Part-Time)</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <a href="/analysis/{{ employee.id }}" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-graph-up"></i> Disparity Evidence
+          </a>
+          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#proposalModal">
+            <i class="bi bi-plus-circle"></i> Create Review Proposal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compensation Metrics Overview Cards -->
+  <div class="row g-3 mb-4">
+    <!-- Current Salary -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card accent">
+        <div class="kpi-label">Current Actual Salary</div>
+        <div class="kpi-value text-dark">
+          {% if current_salary %}
+          {{ current_salary.currency }} {{ "{:,.2f}".format(current_salary.amount) }}
+          {% else %}
+          N/A
+          {% endif %}
+        </div>
+        <div class="kpi-sub">
+          Normalized: <strong>${{ "{:,.2f}".format(analysis.normalized_salary) if analysis.normalized_salary else '0.00' }}</strong> (FTE 1.0 USD)
+        </div>
+      </div>
+    </div>
+
+    <!-- Compa-Ratio -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card {% if analysis.compa_ratio and analysis.compa_ratio < 85 %}warning{% elif analysis.compa_ratio and analysis.compa_ratio > 115 %}danger{% else %}success{% endif %}">
+        <div class="kpi-label">Compa-Ratio</div>
+        <div class="kpi-value">
+          {{ analysis.compa_ratio }}%
+        </div>
+        <div class="kpi-sub">
+          Target: 80% - 120% &bull; Band Mid: ${{ "{:,.0f}".format(active_band.mid_salary) if active_band else 'N/A' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Within-Band Position -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card {% if analysis.within_band_position and analysis.within_band_position < 20 %}warning{% else %}accent{% endif %}">
+        <div class="kpi-label">Within-Band Position</div>
+        <div class="kpi-value">
+          {{ analysis.within_band_position }}%
+        </div>
+        <div class="kpi-sub">
+          Spread: ${{ "{:,.0f}".format(active_band.min_salary) if active_band else 'N/A' }} - ${{ "{:,.0f}".format(active_band.max_salary) if active_band else 'N/A' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Peer Median Variance -->
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card {% if analysis.percentage_difference and analysis.percentage_difference < -15 %}danger{% elif analysis.percentage_difference and analysis.percentage_difference > 15 %}warning{% else %}success{% endif %}">
+        <div class="kpi-label">Peer Cohort Variance</div>
+        <div class="kpi-value">
+          {% if analysis.percentage_difference < 0 %}
+          <span class="text-danger">{{ analysis.percentage_difference }}%</span>
+          {% else %}
+          <span class="text-success">+{{ analysis.percentage_difference }}%</span>
+          {% endif %}
+        </div>
+        <div class="kpi-sub">
+          Peer Median: <strong>${{ "{:,.2f}".format(analysis.group_median_salary) }}</strong> (n={{ analysis.peer_count }} peers)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explainability Callout Banner -->
+  {% if analysis.is_disparity_flagged %}
+  <div class="alert alert-warning border-0 shadow-sm rounded-3 mb-4 d-flex align-items-start gap-3">
+    <i class="bi bi-exclamation-triangle-fill fs-3 text-warning"></i>
+    <div>
+      <h6 class="fw-bold mb-1">Compensation Disparity Detected &bull; Flagged for Human Review</h6>
+      <p class="mb-1 small">{{ analysis.possible_explanation }}</p>
+      <div class="small fw-semibold text-dark">
+        Recommendation: <span class="badge badge-soft-warning">{{ analysis.review_recommendation }}</span>
+        &bull; Confidence / Evidence Completeness: <strong>{{ analysis.confidence_score }}%</strong>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Active Exceptions Alert -->
+  {% if exceptions %}
+  <div class="alert alert-danger border-0 shadow-sm rounded-3 mb-4">
+    <h6 class="fw-bold mb-2"><i class="bi bi-shield-x me-2"></i>Active Data Quality Exceptions Detected</h6>
+    {% for ex in exceptions %}
+    <div class="small mb-1">&bull; <strong>{{ ex.issue_type }}</strong>: {{ ex.description }} (Status: {{ ex.status }})</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Navigation Tabs for Profiles -->
+  <ul class="nav nav-pills mb-3 gap-2" id="profileTabs" role="tablist">
+    <li class="nav-item">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabSalaryHistory">36-Month Salary History</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPerformance">Performance Evidence</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPromotions">Promotion Milestones</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabTenure">Tenure & Experience</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabProposals">Adjustment Proposals ({{ proposals|length }})</button>
+    </li>
+  </ul>
+
+  <!-- Tab Contents -->
+  <div class="tab-content">
+    <!-- 1. Salary History -->
+    <div class="tab-pane fade show active" id="tabSalaryHistory">
+      <div class="table-card">
+        <div class="table-header">
+          <h6 class="fw-bold mb-0">Historical Compensation Timeline</h6>
+          <span class="badge badge-soft-info">{{ salary_history|length }} Monthly Records</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Effective Date</th>
+                <th>Nominal Salary</th>
+                <th>Normalized (FTE 1.0)</th>
+                <th>Compa-Ratio</th>
+                <th>Within Band</th>
+                <th>Band Status</th>
+                <th>Current</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in salary_history %}
+              <tr>
+                <td>{{ s.effective_date.strftime('%B %Y') }}</td>
+                <td class="fw-bold">{{ s.currency }} {{ "{:,.2f}".format(s.amount) }}</td>
+                <td>${{ "{:,.2f}".format(s.normalized_salary) if s.normalized_salary else 'N/A' }}</td>
+                <td>{{ s.compa_ratio }}%</td>
+                <td>{{ s.within_band_position }}%</td>
+                <td>
+                  {% if s.band_status == 'WITHIN_BAND' %}
+                  <span class="badge badge-soft-success">Within Band</span>
+                  {% elif s.band_status == 'BELOW_MINIMUM' %}
+                  <span class="badge badge-soft-warning">Below Minimum</span>
+                  {% elif s.band_status == 'EXPIRED_BAND' %}
+                  <span class="badge badge-soft-danger">Expired Band</span>
+                  {% else %}
+                  <span class="badge badge-soft-secondary">{{ s.band_status }}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if s.is_current %}
+                  <span class="badge bg-primary">Active</span>
+                  {% else %}
+                  <span class="text-muted small">Historical</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Performance Evidence -->
+    <div class="tab-pane fade" id="tabPerformance">
+      <div class="table-card">
+        <div class="table-header">
+          <h6 class="fw-bold mb-0">Documented Performance Reviews</h6>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Cycle</th>
+                <th>Rating</th>
+                <th>Goal Completion</th>
+                <th>Documented Evidence</th>
+                <th>Review Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in performance_records %}
+              <tr>
+                <td class="fw-bold">{{ p.review_cycle }}</td>
+                <td>
+                  <span class="badge {% if p.rating >= 4 %}badge-soft-success{% elif p.rating <= 2 %}badge-soft-danger{% else %}badge-soft-info{% endif %}">
+                    {{ p.rating }} / 5 &bull; {{ p.rating_label }}
+                  </span>
+                </td>
+                <td>{{ p.goal_completion_percentage }}%</td>
+                <td class="small">{{ p.evidence_summary }}</td>
+                <td>{{ p.review_date.strftime('%b %d, %Y') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Promotion Milestones -->
+    <div class="tab-pane fade" id="tabPromotions">
+      <div class="table-card">
+        <div class="table-header">
+          <h6 class="fw-bold mb-0">Promotion History</h6>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Career Progression</th>
+                <th>Salary Increase</th>
+                <th>Justification</th>
+                <th>Approved By</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pr in promotions %}
+              <tr>
+                <td>{{ pr.effective_date.strftime('%b %d, %Y') }}</td>
+                <td class="fw-bold">{{ pr.from_level.code }} &rarr; {{ pr.to_level.code }}</td>
+                <td><span class="badge badge-soft-success">+{{ pr.salary_increase_pct }}%</span></td>
+                <td class="small">{{ pr.justification }}</td>
+                <td>{{ pr.approved_by }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="5" class="text-center text-muted py-3">No historical promotions recorded.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Tenure & Experience -->
+    <div class="tab-pane fade" id="tabTenure">
+      <div class="card border-0 shadow-sm rounded-3 p-4">
+        <h6 class="fw-bold mb-3">Tenure Breakdown</h6>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div class="p-3 bg-light rounded-3">
+              <div class="text-muted small">Company Tenure</div>
+              <div class="fs-4 fw-bold text-dark">{{ employee.tenure_record.company_tenure_months if employee.tenure_record else 0 }} Months</div>
+              <small class="text-secondary">({{ employee.tenure_record.company_tenure_years if employee.tenure_record else 0 }} Years)</small>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 bg-light rounded-3">
+              <div class="text-muted small">Current Role Tenure</div>
+              <div class="fs-4 fw-bold text-dark">{{ employee.tenure_record.role_tenure_months if employee.tenure_record else 0 }} Months</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 bg-light rounded-3">
+              <div class="text-muted small">Prior Experience</div>
+              <div class="fs-4 fw-bold text-dark">{{ employee.tenure_record.prior_experience_months if employee.tenure_record else 0 }} Months</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-3 bg-light rounded-3">
+              <div class="text-muted small">Total Career Experience</div>
+              <div class="fs-4 fw-bold text-dark">{{ employee.tenure_record.total_months_experience if employee.tenure_record else 0 }} Months</div>
+              <small class="text-secondary">({{ employee.tenure_record.total_experience_years if employee.tenure_record else 0 }} Years)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Proposals -->
+    <div class="tab-pane fade" id="tabProposals">
+      <div class="table-card">
+        <div class="table-header">
+          <h6 class="fw-bold mb-0">Salary Review Proposals</h6>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Proposal ID</th>
+                <th>Current Salary</th>
+                <th>Proposed Salary</th>
+                <th>Delta</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for prop in proposals %}
+              <tr>
+                <td class="fw-bold">{{ prop.id }}</td>
+                <td>${{ "{:,.2f}".format(prop.current_salary) }}</td>
+                <td class="fw-bold text-primary">${{ "{:,.2f}".format(prop.proposed_salary) }}</td>
+                <td><span class="badge badge-soft-success">+{{ prop.percentage_change }}%</span></td>
+                <td>{{ prop.reason }}</td>
+                <td><span class="badge badge-soft-info">{{ prop.status }}</span></td>
+                <td>{{ prop.created_at.strftime('%b %d, %Y') }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="7" class="text-center text-muted py-3">No active proposals for this employee.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Create Proposal Modal -->
+<div class="modal fade" id="proposalModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/proposals/create" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Initiate Compensation Review Proposal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="employee_id" value="{{ employee.id }}">
+          
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Employee</label>
+            <input type="text" class="form-control" value="{{ employee.full_name }} ({{ employee.id }})" readonly>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label small fw-semibold">Current Salary ($)</label>
+              <input type="text" class="form-control" value="{{ current_salary.amount if current_salary else 0 }}" readonly>
+            </div>
+            <div class="col-6">
+              <label class="form-label small fw-semibold">Proposed Salary ($)</label>
+              <input type="number" step="500" name="proposed_salary" class="form-control" value="{{ (analysis.group_median_salary) if analysis.group_median_salary else 150000 }}" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Reason for Adjustment</label>
+            <select name="reason" class="form-select" required>
+              <option value="Market Equity Parity Adjustment">Market Equity Parity Adjustment</option>
+              <option value="Performance Merit Re-alignment">Performance Merit Re-alignment</option>
+              <option value="Band Minimum Compliance Correction">Band Minimum Compliance Correction</option>
+              <option value="Retention & Competitive Offer Match">Retention & Competitive Offer Match</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Priority</label>
+            <select name="priority" class="form-select">
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Supporting Evidence & Justification</label>
+            <textarea name="supporting_evidence" rows="3" class="form-control" required>{{ analysis.possible_explanation }}</textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sm btn-primary">Submit Proposal for Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Data Quality & System Exceptions{% endblock %}
+{% block header_title %}Data Quality & Edge Cases Monitor{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Overview Banner -->
+  <div class="card border-0 shadow-sm rounded-3 p-4 mb-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <h5 class="fw-bold mb-1">Referential Integrity & Anomaly Exceptions</h5>
+        <p class="text-secondary small mb-0">Automated monitoring of all 5 mandatory edge cases and data validation errors.</p>
+      </div>
+
+      <div class="d-flex gap-2">
+        <a href="/data-quality" class="btn btn-sm btn-outline-secondary">All Exceptions</a>
+        <a href="/data-quality?issue_type=EXPIRED_BAND" class="btn btn-sm btn-outline-danger">Case 1: Expired Band</a>
+        <a href="/data-quality?issue_type=FTE_IGNORED" class="btn btn-sm btn-outline-warning">Case 2: FTE Ignored</a>
+        <a href="/data-quality?issue_type=MISSING_EXCHANGE_RATE" class="btn btn-sm btn-outline-danger">Case 3: Missing FX</a>
+        <a href="/data-quality?issue_type=UNAUTHORIZED_ADJUSTMENT" class="btn btn-sm btn-outline-dark">Case 4: Unauthorized</a>
+        <a href="/data-quality?issue_type=INCOMPARABLE_ROLE_GROUPING" class="btn btn-sm btn-outline-primary">Case 5: Bad Grouping</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exceptions List Card -->
+  <div class="table-card">
+    <div class="table-header">
+      <h6 class="fw-bold mb-0">Data Quality Issues Ledger ({{ issues|length }})</h6>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Issue ID</th>
+            <th>Issue Type & Edge Case</th>
+            <th>Severity</th>
+            <th>Entity Affected</th>
+            <th>Description & Diagnostic</th>
+            <th>Ground Truth Label</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for issue in issues %}
+          <tr>
+            <td class="fw-bold small">{{ issue.id }}</td>
+            <td>
+              <span class="badge {% if issue.severity == 'CRITICAL' %}badge-soft-danger{% elif issue.severity == 'HIGH' %}badge-soft-warning{% else %}badge-soft-info{% endif %}">
+                {{ issue.issue_type }}
+              </span>
+            </td>
+            <td>
+              {% if issue.severity == 'CRITICAL' %}
+              <span class="text-danger fw-bold"><i class="bi bi-shield-x"></i> CRITICAL</span>
+              {% elif issue.severity == 'HIGH' %}
+              <span class="text-warning fw-bold"><i class="bi bi-exclamation-triangle"></i> HIGH</span>
+              {% else %}
+              <span class="text-secondary">MEDIUM</span>
+              {% endif %}
+            </td>
+            <td>
+              <div>{{ issue.entity_type }}</div>
+              <small class="text-muted">{{ issue.entity_id }}</small>
+            </td>
+            <td class="small" style="max-width: 320px;">
+              {{ issue.description }}
+              {% if issue.resolution_notes %}
+              <div class="text-success mt-1"><em>{{ issue.resolution_notes }}</em></div>
+              {% endif %}
+            </td>
+            <td>
+              <span class="badge badge-soft-secondary small">{{ issue.ground_truth_label }}</span>
+            </td>
+            <td>
+              {% if issue.status == 'OPEN' %}
+              <span class="badge bg-danger">OPEN</span>
+              {% else %}
+              <span class="badge bg-success">RESOLVED</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if issue.status == 'OPEN' %}
+              <button class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 0.8rem;" data-bs-toggle="modal" data-bs-target="#resolveModal{{ loop.index }}">
+                Resolve
+              </button>
+
+              <!-- Resolve Modal -->
+              <div class="modal fade" id="resolveModal{{ loop.index }}" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <form action="/data-quality/resolve" method="POST">
+                      <div class="modal-header">
+                        <h6 class="modal-title fw-bold">Resolve Data Quality Exception</h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <input type="hidden" name="issue_id" value="{{ issue.id }}">
+                        <p class="small text-muted mb-2">Issue ID: <strong>{{ issue.id }}</strong> ({{ issue.issue_type }})</p>
+                        <div class="mb-3">
+                          <label class="form-label small fw-semibold">Resolution Notes</label>
+                          <textarea name="resolution_notes" class="form-control" rows="3" required placeholder="Document action taken (e.g., active band re-linked, exchange rate configured in table, or group reconstituted)..."></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-success">Mark as Resolved</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <span class="text-success small"><i class="bi bi-check-circle"></i> Resolved</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center text-muted py-4">No data quality issues matching filter criteria.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

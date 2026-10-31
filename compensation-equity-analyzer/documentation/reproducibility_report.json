@@ -1,0 +1,30 @@
+{
+  "reproducibility_status": "VERIFIED_DETERMINISTIC",
+  "fixed_seed": 20261022,
+  "sample_size": 50,
+  "run_comparison": {
+    "employees_row_count_run1": 50,
+    "employees_row_count_run2": 50,
+    "salary_records_count_run1": 1298,
+    "salary_records_count_run2": 1298,
+    "performance_records_count_run1": 199,
+    "performance_records_count_run2": 199,
+    "deterministic_ids_match": true,
+    "employee_sha256_match": true,
+    "salary_sha256_match": true,
+    "performance_sha256_match": true,
+    "run1_employee_sha256": "26afcc4af246cb9929196802e67d31c7c6b55d79165d5087ef6285e5a5cc84dd",
+    "run2_employee_sha256": "26afcc4af246cb9929196802e67d31c7c6b55d79165d5087ef6285e5a5cc84dd",
+    "run1_salary_sha256": "94812dd11a8d62ce399e61ae13471c8cd2ac1f20e875be42c5da350b59599972",
+    "run2_salary_sha256": "94812dd11a8d62ce399e61ae13471c8cd2ac1f20e875be42c5da350b59599972"
+  },
+  "file_sha256_checksums": {
+    "employees.csv": "5bcb074d5e91431b90b4b99efdc1152e83394b3724d0e4014394aebba69cad98",
+    "roles.csv": "130119d65fe8a5e8acba4c67c5a79f3e4c2bf5f59d263a9dc481d934fba29170",
+    "levels.csv": "0344d91968f48439b7408440537c523f8c3fd75ab7616787ebb28d705c31a187",
+    "locations.csv": "40410118c229da4d99f96744fd4ecbf3fe48e9a0e1a83e77526dec35a796ec27",
+    "compensation_bands.csv": "704d36180092e8b74d211a067f3bb4e069af26b9fdaf0f48ff986c290b254c26",
+    "salary_records.csv": "9d63bff6705b7540f97e5ad6c65beffd2606289b23fb04cd44c4218e1d6ab9d2",
+    "ground_truth.csv": "4323c5dc34229464d73083a56cec3fa5e6ef0170ba30ca9084d86ddad8909b12"
+  }
+}

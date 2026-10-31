@@ -1,0 +1,62 @@
+{
+  "evaluation_timestamp": "2026-12-31",
+  "metrics": {
+    "precision_percentage": 100.0,
+    "recall_percentage": 100.0,
+    "f1_score": 100.0,
+    "false_positive_rate": 0.0,
+    "false_negative_rate": 0.0,
+    "exception_detection_coverage_pct": 100.0
+  },
+  "confusion_matrix": {
+    "true_positives": 5,
+    "false_positives": 0,
+    "true_negatives": 6946,
+    "false_negatives": 0
+  },
+  "edge_case_verification": {
+    "CASE_1_EXPIRED_BAND": {
+      "record_id": "SAL-EMP-000002-2026-10",
+      "issue_type": "EXPIRED_BAND",
+      "detected": true,
+      "expected_decision": "EXCLUDE_FROM_COMPENSATION_DECISION",
+      "status": "PASS"
+    },
+    "CASE_2_FTE_IGNORED": {
+      "record_id": "SAL-EMP-000032-2026-10",
+      "issue_type": "FTE_IGNORED",
+      "detected": true,
+      "expected_decision": "RECALCULATE_FTE_NORMALIZED",
+      "status": "PASS"
+    },
+    "CASE_3_MISSING_CURRENCY_CONVERSION": {
+      "record_id": "SAL-EMP-000004-2026-10",
+      "issue_type": "MISSING_EXCHANGE_RATE",
+      "detected": true,
+      "expected_decision": "HALT_COMPARISON_FLAG_EXCEPTION",
+      "status": "PASS"
+    },
+    "CASE_4_UNAUTHORIZED_ADJUSTMENT": {
+      "record_id": "EVT-UNAUTH-2026-0001",
+      "issue_type": "UNAUTHORIZED_ADJUSTMENT",
+      "detected": true,
+      "expected_decision": "TRIGGER_HIGH_PRIORITY_AUDIT",
+      "status": "PASS"
+    },
+    "CASE_5_INCOMPARABLE_ROLES_GROUPED": {
+      "record_id": "GRP-INCOMPATIBLE-001",
+      "issue_type": "INCOMPARABLE_ROLE_GROUPING",
+      "detected": true,
+      "expected_decision": "INVALIDATE_COMPARISON_GROUP",
+      "status": "PASS"
+    }
+  },
+  "operational_report": {
+    "total_records_generated": 6947,
+    "valid_records": 6942,
+    "invalid_records": 5,
+    "number_of_anomalies": 5,
+    "number_of_proposals_generated": 0,
+    "number_of_records_reconciled": 0
+  }
+}

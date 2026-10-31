@@ -1,0 +1,7 @@
+id,code,name,hierarchy_order,min_experience_years
+LVL-L1,L1,Associate / Entry,1,0
+LVL-L2,L2,Mid-Level Professional,2,2
+LVL-L3,L3,Senior Professional,3,5
+LVL-L4,L4,Staff / Lead,4,8
+LVL-L5,L5,Principal / Director,5,12
+LVL-L6,L6,Executive / VP,6,16

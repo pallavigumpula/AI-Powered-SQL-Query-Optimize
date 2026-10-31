@@ -1,0 +1,98 @@
+{
+  "validation_timestamp": "2026-10-31T03:32:11.000084Z",
+  "overall_status": "PASSED",
+  "checks": {
+    "primary_key_uniqueness": {
+      "passed": true,
+      "details": [
+        {
+          "entity": "Employee",
+          "total": 250,
+          "distinct": 250,
+          "passed": true
+        },
+        {
+          "entity": "Role",
+          "total": 16,
+          "distinct": 16,
+          "passed": true
+        },
+        {
+          "entity": "Level",
+          "total": 6,
+          "distinct": 6,
+          "passed": true
+        },
+        {
+          "entity": "Location",
+          "total": 8,
+          "distinct": 8,
+          "passed": true
+        },
+        {
+          "entity": "CompensationBand",
+          "total": 786,
+          "distinct": 786,
+          "passed": true
+        },
+        {
+          "entity": "SalaryRecord",
+          "total": 6947,
+          "distinct": 6947,
+          "passed": true
+        },
+        {
+          "entity": "PerformanceEvidence",
+          "total": 1048,
+          "distinct": 1048,
+          "passed": true
+        },
+        {
+          "entity": "Tenure",
+          "total": 250,
+          "distinct": 250,
+          "passed": true
+        },
+        {
+          "entity": "Promotion",
+          "total": 25,
+          "distinct": 25,
+          "passed": true
+        },
+        {
+          "entity": "User",
+          "total": 5,
+          "distinct": 5,
+          "passed": true
+        }
+      ]
+    },
+    "foreign_key_integrity": {
+      "passed": true,
+      "violations_count": 0,
+      "failures": []
+    },
+    "allowed_enum_and_range_validity": {
+      "passed": true,
+      "violations": []
+    },
+    "salary_arithmetic_consistency": {
+      "passed": true,
+      "discrepancies": []
+    },
+    "date_ordering_and_progression": {
+      "passed": true,
+      "violations": []
+    }
+  },
+  "summary_metrics": {
+    "total_employees": 250,
+    "total_salary_records": 6947,
+    "total_performance_records": 1048,
+    "total_promotions": 25,
+    "total_compensation_bands": 786,
+    "total_data_quality_issues": 5,
+    "active_bands_count": 768,
+    "expired_bands_count": 18
+  }
+}

@@ -1,0 +1,251 @@
+id,first_name,last_name,email,department,role_id,level_id,location_id,manager_id,hire_date,status,fte,currency
+EMP-000001,Michael,Riley,michael.riley.1@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-IN-BLR,,2023-10-09,Active,1.0,INR
+EMP-000002,Sarah,Williams,sarah.williams.2@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-US-NYC,,2019-04-25,Active,1.0,USD
+EMP-000003,Rodney,Hall,rodney.hall.3@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-AUS,EMP-000002,2019-11-16,Active,1.0,USD
+EMP-000004,April,Petersen,april.petersen.4@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L1,LOC-US-NYC,EMP-000002,2025-09-30,Active,1.0,CHF
+EMP-000005,Carlos,Gonzalez,carlos.gonzalez.5@yottaflex.ai,AI Research,ROLE-MLE,LVL-L4,LOC-DE-BER,,2021-09-13,Active,1.0,EUR
+EMP-000006,Eric,Miles,eric.miles.6@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L1,LOC-JP-TYO,EMP-000005,2025-10-31,Active,1.0,JPY
+EMP-000007,Mary,Rodriguez,mary.rodriguez.7@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-SF,EMP-000002,2021-02-06,Active,1.0,USD
+EMP-000008,Cheryl,Hernandez,cheryl.hernandez.8@yottaflex.ai,People & HR,ROLE-TA,LVL-L1,LOC-JP-TYO,EMP-000002,2026-06-03,Active,1.0,JPY
+EMP-000009,Audrey,Garza,audrey.garza.9@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L3,LOC-US-AUS,EMP-000002,2026-01-02,Active,1.0,USD
+EMP-000010,Aaron,Wilson,aaron.wilson.10@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L5,LOC-US-NYC,,2020-10-26,Active,1.0,USD
+EMP-000011,Charles,Bailey,charles.bailey.11@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L2,LOC-US-SF,EMP-000010,2022-12-07,Active,0.8,USD
+EMP-000012,Amy,Bass,amy.bass.12@yottaflex.ai,Finance,ROLE-FIN,LVL-L3,LOC-US-SF,EMP-000010,2022-12-10,Active,0.8,USD
+EMP-000013,Brittany,Ellis,brittany.ellis.13@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-DE-BER,EMP-000005,2024-06-25,Active,1.0,EUR
+EMP-000014,Thomas,Hart,thomas.hart.14@yottaflex.ai,Engineering,ROLE-QA,LVL-L2,LOC-SG-SIN,EMP-000005,2019-04-22,Active,1.0,SGD
+EMP-000015,Jose,Palmer,jose.palmer.15@yottaflex.ai,Product,ROLE-PRODDES,LVL-L6,LOC-US-AUS,,2021-01-04,Active,1.0,USD
+EMP-000016,Brandon,Thompson,brandon.thompson.16@yottaflex.ai,Engineering,ROLE-QA,LVL-L3,LOC-US-NYC,EMP-000010,2019-08-31,Active,1.0,USD
+EMP-000017,Luis,Butler,luis.butler.17@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L2,LOC-US-NYC,EMP-000010,2019-09-02,Active,1.0,USD
+EMP-000018,Brandon,Bryant,brandon.bryant.18@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L2,LOC-US-AUS,EMP-000005,2024-10-05,Active,1.0,USD
+EMP-000019,Pamela,Williams,pamela.williams.19@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-JP-TYO,EMP-000015,2023-10-26,Active,1.0,JPY
+EMP-000020,Sarah,Bradshaw,sarah.bradshaw.20@yottaflex.ai,Product,ROLE-PRODDES,LVL-L2,LOC-US-SF,EMP-000015,2025-11-27,Active,1.0,USD
+EMP-000021,Daniel,Brown,daniel.brown.21@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-SF,EMP-000015,2021-02-11,Active,1.0,USD
+EMP-000022,Benjamin,Davis,benjamin.davis.22@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L1,LOC-US-NYC,EMP-000002,2022-02-10,Active,1.0,USD
+EMP-000023,Jonathan,Smith,jonathan.smith.23@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-IN-BLR,EMP-000015,2025-06-16,Active,0.8,INR
+EMP-000024,Angela,Robinson,angela.robinson.24@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L3,LOC-JP-TYO,EMP-000005,2024-08-29,Active,1.0,JPY
+EMP-000025,Xavier,Mendoza,xavier.mendoza.25@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L2,LOC-US-SF,EMP-000005,2025-11-12,Active,1.0,USD
+EMP-000026,Benjamin,Patel,benjamin.patel.26@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L1,LOC-UK-LON,EMP-000015,2019-07-31,Active,0.8,GBP
+EMP-000027,Olivia,Diaz,olivia.diaz.27@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L2,LOC-IN-BLR,EMP-000005,2022-02-16,Active,1.0,INR
+EMP-000028,Patricia,Watkins,patricia.watkins.28@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L2,LOC-US-AUS,EMP-000005,2022-07-09,Active,1.0,USD
+EMP-000029,Wendy,Smith,wendy.smith.29@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L3,LOC-US-NYC,EMP-000002,2025-02-16,Active,1.0,USD
+EMP-000030,Karen,Young,karen.young.30@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-US-SF,EMP-000015,2026-06-05,Active,0.8,USD
+EMP-000031,Allen,Fletcher,allen.fletcher.31@yottaflex.ai,Engineering,ROLE-SWE,LVL-L1,LOC-US-AUS,EMP-000030,2024-11-09,Active,1.0,USD
+EMP-000032,Eric,Black,eric.black.32@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-DE-BER,EMP-000002,2020-03-21,Active,0.5,EUR
+EMP-000033,Nancy,Ortega,nancy.ortega.33@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L1,LOC-US-NYC,EMP-000030,2023-02-14,Active,1.0,USD
+EMP-000034,Nicholas,Vincent,nicholas.vincent.34@yottaflex.ai,Product,ROLE-UXRES,LVL-L1,LOC-IN-BLR,EMP-000030,2025-04-30,Active,1.0,INR
+EMP-000035,John,Richard,john.richard.35@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-SF,EMP-000030,2026-01-24,Active,1.0,USD
+EMP-000036,Bryan,Barrera,bryan.barrera.36@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-US-SF,EMP-000030,2024-01-07,Active,1.0,USD
+EMP-000037,Kevin,Williams,kevin.williams.37@yottaflex.ai,Sales,ROLE-AE,LVL-L3,LOC-JP-TYO,EMP-000010,2026-05-24,Active,1.0,JPY
+EMP-000038,Andrew,Wagner,andrew.wagner.38@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-UK-LON,EMP-000015,2022-12-08,Active,1.0,GBP
+EMP-000039,Alexis,Palmer,alexis.palmer.39@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L5,LOC-US-NYC,EMP-000015,2019-08-18,Active,0.5,USD
+EMP-000040,Jeffrey,Stevens,jeffrey.stevens.40@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-SF,EMP-000015,2025-02-14,Active,1.0,USD
+EMP-000041,Gerald,Harris,gerald.harris.41@yottaflex.ai,Product,ROLE-PRODDES,LVL-L1,LOC-IN-BLR,EMP-000010,2025-02-19,Active,0.8,INR
+EMP-000042,William,Davidson,william.davidson.42@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L2,LOC-US-AUS,EMP-000039,2022-04-26,Active,1.0,USD
+EMP-000043,Lindsey,Vance,lindsey.vance.43@yottaflex.ai,Engineering,ROLE-QA,LVL-L3,LOC-DE-BER,EMP-000030,2024-11-16,Active,1.0,EUR
+EMP-000044,Michael,Hardy,michael.hardy.44@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-US-NYC,EMP-000015,2024-10-03,Active,1.0,USD
+EMP-000045,Timothy,Ramirez,timothy.ramirez.45@yottaflex.ai,Engineering,ROLE-QA,LVL-L2,LOC-US-NYC,EMP-000010,2025-12-08,Active,0.5,USD
+EMP-000046,Matthew,Scott,matthew.scott.46@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L2,LOC-US-NYC,EMP-000044,2022-01-03,Active,1.0,USD
+EMP-000047,Jose,Sanders,jose.sanders.47@yottaflex.ai,Finance,ROLE-FIN,LVL-L2,LOC-US-NYC,EMP-000002,2024-05-22,Active,1.0,USD
+EMP-000048,Robert,Roth,robert.roth.48@yottaflex.ai,Product,ROLE-PRODDES,LVL-L4,LOC-US-SF,EMP-000039,2021-05-23,Active,1.0,USD
+EMP-000049,Henry,Navarro,henry.navarro.49@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L2,LOC-US-AUS,EMP-000015,2020-07-24,Active,1.0,USD
+EMP-000050,Sara,Thompson,sara.thompson.50@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L3,LOC-US-NYC,EMP-000044,2024-12-09,Active,1.0,USD
+EMP-000051,Kathryn,Owens,kathryn.owens.51@yottaflex.ai,Product,ROLE-PRODDES,LVL-L4,LOC-US-AUS,EMP-000038,2021-11-29,Active,1.0,USD
+EMP-000052,Edgar,Hernandez,edgar.hernandez.52@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-AUS,EMP-000005,2021-09-29,Active,1.0,USD
+EMP-000053,Zachary,Johnson,zachary.johnson.53@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L3,LOC-UK-LON,EMP-000015,2023-06-24,Active,1.0,GBP
+EMP-000054,Margaret,Best,margaret.best.54@yottaflex.ai,Engineering,ROLE-QA,LVL-L1,LOC-UK-LON,EMP-000051,2023-05-16,Active,1.0,GBP
+EMP-000055,Scott,Holt,scott.holt.55@yottaflex.ai,Sales,ROLE-CSM,LVL-L6,LOC-US-NYC,,2019-11-04,Active,1.0,USD
+EMP-000056,Derek,Fritz,derek.fritz.56@yottaflex.ai,People & HR,ROLE-TA,LVL-L2,LOC-US-AUS,EMP-000002,2023-06-05,Active,1.0,USD
+EMP-000057,Peter,Dixon,peter.dixon.57@yottaflex.ai,Sales,ROLE-AE,LVL-L4,LOC-US-NYC,EMP-000015,2020-07-10,Active,1.0,USD
+EMP-000058,Sandra,Martinez,sandra.martinez.58@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L4,LOC-SG-SIN,EMP-000038,2020-08-27,Active,1.0,SGD
+EMP-000059,Paul,Gould,paul.gould.59@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L1,LOC-US-NYC,EMP-000038,2022-04-13,Active,1.0,USD
+EMP-000060,Jessica,Mcintosh,jessica.mcintosh.60@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-IN-BLR,EMP-000057,2022-07-16,Active,1.0,INR
+EMP-000061,Kristina,Hernandez,kristina.hernandez.61@yottaflex.ai,Finance,ROLE-FIN,LVL-L4,LOC-IN-BLR,EMP-000055,2021-04-12,Active,1.0,INR
+EMP-000062,Danielle,Knight,danielle.knight.62@yottaflex.ai,Engineering,ROLE-SWE,LVL-L1,LOC-DE-BER,EMP-000038,2019-04-09,Active,0.8,EUR
+EMP-000063,Albert,Reynolds,albert.reynolds.63@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-UK-LON,EMP-000055,2025-06-03,Active,1.0,GBP
+EMP-000064,Kenneth,Davis,kenneth.davis.64@yottaflex.ai,AI Research,ROLE-MLE,LVL-L5,LOC-US-NYC,EMP-000055,2024-09-01,Active,1.0,USD
+EMP-000065,Jared,Drake,jared.drake.65@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L1,LOC-SG-SIN,EMP-000038,2026-05-14,Active,1.0,SGD
+EMP-000066,Erik,Mcdowell,erik.mcdowell.66@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-NYC,EMP-000044,2022-09-19,Active,1.0,USD
+EMP-000067,Lawrence,Gonzalez,lawrence.gonzalez.67@yottaflex.ai,Product,ROLE-PM,LVL-L5,LOC-DE-BER,EMP-000015,2023-03-26,Active,1.0,EUR
+EMP-000068,Nicholas,Ball,nicholas.ball.68@yottaflex.ai,Engineering,ROLE-SWE,LVL-L1,LOC-US-SF,EMP-000005,2023-07-07,Active,1.0,USD
+EMP-000069,Jamie,Schmidt,jamie.schmidt.69@yottaflex.ai,Finance,ROLE-FIN,LVL-L2,LOC-US-SF,EMP-000010,2025-10-28,Active,1.0,USD
+EMP-000070,Arthur,Lawson,arthur.lawson.70@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-SG-SIN,EMP-000055,2026-03-29,Active,1.0,SGD
+EMP-000071,Brittany,Henry,brittany.henry.71@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-DE-BER,EMP-000055,2026-03-26,Active,1.0,EUR
+EMP-000072,Dakota,Powell,dakota.powell.72@yottaflex.ai,Engineering,ROLE-QA,LVL-L1,LOC-US-NYC,EMP-000039,2019-12-22,Active,1.0,USD
+EMP-000073,Austin,Moyer,austin.moyer.73@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L2,LOC-US-NYC,EMP-000005,2020-04-14,Active,0.8,USD
+EMP-000074,Kara,Hickman,kara.hickman.74@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L4,LOC-DE-BER,EMP-000039,2019-06-25,Active,1.0,EUR
+EMP-000075,Stephen,Powell,stephen.powell.75@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-NYC,EMP-000055,2020-12-10,Active,1.0,USD
+EMP-000076,Jessica,Lopez,jessica.lopez.76@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-US-AUS,EMP-000055,2026-06-17,Active,1.0,USD
+EMP-000077,Patrick,Cook,patrick.cook.77@yottaflex.ai,Product,ROLE-PM,LVL-L1,LOC-UK-LON,EMP-000005,2026-04-13,Active,1.0,GBP
+EMP-000078,William,Cain,william.cain.78@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-US-NYC,EMP-000015,2019-12-21,Active,1.0,USD
+EMP-000079,Anthony,Valdez,anthony.valdez.79@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-IN-BLR,EMP-000010,2025-08-30,Active,0.8,INR
+EMP-000080,Jesse,Walker,jesse.walker.80@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L4,LOC-US-SF,EMP-000067,2021-05-12,Active,1.0,USD
+EMP-000081,Beth,Mitchell,beth.mitchell.81@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L1,LOC-UK-LON,EMP-000039,2023-05-07,Active,1.0,GBP
+EMP-000082,Christopher,Mendoza,christopher.mendoza.82@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-US-SF,EMP-000005,2024-07-13,Active,1.0,USD
+EMP-000083,Jeffrey,Foster,jeffrey.foster.83@yottaflex.ai,People & HR,ROLE-TA,LVL-L4,LOC-US-SF,EMP-000067,2024-03-06,Active,1.0,USD
+EMP-000084,Antonio,Walker,antonio.walker.84@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-US-SF,EMP-000064,2024-01-04,Active,1.0,USD
+EMP-000085,Charles,Petty,charles.petty.85@yottaflex.ai,People & HR,ROLE-TA,LVL-L3,LOC-US-SF,EMP-000067,2024-11-21,Active,0.5,USD
+EMP-000086,Daniel,Dixon,daniel.dixon.86@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L4,LOC-US-NYC,EMP-000015,2024-07-11,Active,1.0,USD
+EMP-000087,Julia,Jones,julia.jones.87@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-SG-SIN,EMP-000061,2024-02-04,Active,1.0,SGD
+EMP-000088,Jonathon,Duncan,jonathon.duncan.88@yottaflex.ai,Sales,ROLE-CSM,LVL-L2,LOC-US-NYC,EMP-000080,2024-10-26,Active,1.0,USD
+EMP-000089,Steve,Pineda,steve.pineda.89@yottaflex.ai,Sales,ROLE-CSM,LVL-L1,LOC-UK-LON,EMP-000086,2020-08-30,Active,1.0,GBP
+EMP-000090,Ryan,Jones,ryan.jones.90@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-US-NYC,EMP-000055,2026-06-13,Active,1.0,USD
+EMP-000091,Megan,Hardin,megan.hardin.91@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L3,LOC-US-NYC,EMP-000038,2020-07-24,Active,1.0,USD
+EMP-000092,Amanda,Miranda,amanda.miranda.92@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-US-NYC,EMP-000058,2026-01-21,Active,1.0,USD
+EMP-000093,Kristie,Keller,kristie.keller.93@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-UK-LON,EMP-000090,2023-06-28,Active,0.8,GBP
+EMP-000094,Michael,Martin,michael.martin.94@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-NYC,EMP-000030,2022-09-01,Active,1.0,USD
+EMP-000095,George,Nicholson,george.nicholson.95@yottaflex.ai,Sales,ROLE-CSM,LVL-L2,LOC-US-SF,EMP-000048,2021-08-20,Active,1.0,USD
+EMP-000096,Kelly,Brewer,kelly.brewer.96@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L6,LOC-JP-TYO,,2025-08-29,Active,1.0,JPY
+EMP-000097,Tina,Ponce,tina.ponce.97@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L2,LOC-US-AUS,EMP-000057,2021-06-04,Active,1.0,USD
+EMP-000098,Andrew,Arnold,andrew.arnold.98@yottaflex.ai,Product,ROLE-PM,LVL-L4,LOC-US-NYC,EMP-000090,2021-06-25,Active,1.0,USD
+EMP-000099,Derrick,Torres,derrick.torres.99@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L2,LOC-IN-BLR,EMP-000010,2023-05-19,Active,1.0,INR
+EMP-000100,Dustin,Kelly,dustin.kelly.100@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L3,LOC-US-AUS,EMP-000076,2023-12-08,Active,1.0,USD
+EMP-000101,Amy,Anderson,amy.anderson.101@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-US-SF,EMP-000064,2019-09-17,Active,1.0,USD
+EMP-000102,Lisa,Ibarra,lisa.ibarra.102@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L5,LOC-US-SF,EMP-000015,2025-08-19,Active,1.0,USD
+EMP-000103,Jeffrey,White,jeffrey.white.103@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L1,LOC-US-NYC,EMP-000039,2023-08-31,Active,1.0,USD
+EMP-000104,Joanne,Golden,joanne.golden.104@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-UK-LON,EMP-000051,2024-07-02,Active,1.0,GBP
+EMP-000105,Emily,Harris,emily.harris.105@yottaflex.ai,Product,ROLE-PM,LVL-L4,LOC-US-SF,EMP-000044,2024-04-06,Active,1.0,USD
+EMP-000106,Walter,Golden,walter.golden.106@yottaflex.ai,Engineering,ROLE-QA,LVL-L3,LOC-US-AUS,EMP-000005,2022-09-05,Active,1.0,USD
+EMP-000107,Amanda,Sutton,amanda.sutton.107@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-US-SF,EMP-000067,2026-06-21,Active,0.5,USD
+EMP-000108,Bryan,Reed,bryan.reed.108@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L1,LOC-IN-BLR,EMP-000051,2024-12-27,Active,1.0,INR
+EMP-000109,Heather,Bailey,heather.bailey.109@yottaflex.ai,Engineering,ROLE-QA,LVL-L4,LOC-US-SF,EMP-000102,2025-10-20,Active,0.8,USD
+EMP-000110,Samantha,Morgan,samantha.morgan.110@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-US-NYC,EMP-000039,2023-10-25,Active,0.8,USD
+EMP-000111,Craig,Webb,craig.webb.111@yottaflex.ai,Finance,ROLE-FIN,LVL-L3,LOC-US-AUS,EMP-000067,2025-11-25,Active,1.0,USD
+EMP-000112,Laura,George,laura.george.112@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L2,LOC-US-NYC,EMP-000058,2026-01-04,Active,0.8,USD
+EMP-000113,William,Martinez,william.martinez.113@yottaflex.ai,Engineering,ROLE-QA,LVL-L3,LOC-DE-BER,EMP-000070,2021-03-12,Active,1.0,EUR
+EMP-000114,Lisa,Chen,lisa.chen.114@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-NYC,EMP-000086,2020-05-20,Active,1.0,USD
+EMP-000115,Nicole,Smith,nicole.smith.115@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L1,LOC-US-SF,EMP-000086,2025-12-09,Active,1.0,USD
+EMP-000116,Rachel,Wilson,rachel.wilson.116@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-NYC,EMP-000093,2024-01-16,Active,1.0,USD
+EMP-000117,Felicia,Campbell,felicia.campbell.117@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-US-SF,EMP-000096,2023-10-15,Active,1.0,USD
+EMP-000118,Jeffrey,Lambert,jeffrey.lambert.118@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L6,LOC-US-SF,,2023-02-19,Active,1.0,USD
+EMP-000119,James,Johnson,james.johnson.119@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L4,LOC-US-AUS,EMP-000064,2025-12-05,Active,1.0,USD
+EMP-000120,Brian,Warren,brian.warren.120@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-US-AUS,EMP-000090,2020-06-15,Active,1.0,USD
+EMP-000121,Michael,Burke,michael.burke.121@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L2,LOC-US-NYC,EMP-000030,2021-08-29,Active,1.0,USD
+EMP-000122,Brianna,Wolf,brianna.wolf.122@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L2,LOC-JP-TYO,EMP-000057,2022-06-25,Active,1.0,JPY
+EMP-000123,Gregory,Ramirez,gregory.ramirez.123@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L2,LOC-US-NYC,EMP-000098,2022-05-15,Active,1.0,USD
+EMP-000124,Deanna,Burgess,deanna.burgess.124@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-SF,EMP-000105,2019-05-29,Active,1.0,USD
+EMP-000125,Laura,Lawrence,laura.lawrence.125@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L2,LOC-US-NYC,EMP-000048,2020-09-14,Active,1.0,USD
+EMP-000126,Justin,Stanton,justin.stanton.126@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L2,LOC-US-AUS,EMP-000071,2021-09-05,Active,1.0,USD
+EMP-000127,Richard,Smith,richard.smith.127@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-US-SF,EMP-000067,2026-06-12,Active,1.0,USD
+EMP-000128,Brian,Horn,brian.horn.128@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L5,LOC-SG-SIN,EMP-000118,2025-01-03,Active,1.0,SGD
+EMP-000129,Andrew,Dawson,andrew.dawson.129@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-US-SF,EMP-000044,2024-11-06,Active,1.0,USD
+EMP-000130,Edwin,Morris,edwin.morris.130@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L6,LOC-UK-LON,,2024-07-15,Active,1.0,GBP
+EMP-000131,James,Brown,james.brown.131@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L3,LOC-DE-BER,EMP-000071,2019-11-23,Active,1.0,EUR
+EMP-000132,Rebecca,Johns,rebecca.johns.132@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L1,LOC-US-SF,EMP-000030,2019-11-06,Active,1.0,USD
+EMP-000133,Anthony,Bell,anthony.bell.133@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-UK-LON,EMP-000102,2025-06-20,Active,0.8,GBP
+EMP-000134,Melissa,Alvarado,melissa.alvarado.134@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000057,2025-01-10,Active,1.0,INR
+EMP-000135,Holly,Hopkins,holly.hopkins.135@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L3,LOC-US-NYC,EMP-000109,2020-10-08,Active,1.0,USD
+EMP-000136,Miguel,Johnson,miguel.johnson.136@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-US-NYC,EMP-000130,2020-05-15,Active,1.0,USD
+EMP-000137,Lisa,Ramirez,lisa.ramirez.137@yottaflex.ai,AI Research,ROLE-MLE,LVL-L5,LOC-DE-BER,EMP-000118,2020-03-25,Active,1.0,EUR
+EMP-000138,Christine,Chan,christine.chan.138@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-US-NYC,EMP-000058,2024-09-08,Active,1.0,USD
+EMP-000139,Eric,Brown,eric.brown.139@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-UK-LON,EMP-000015,2021-01-10,Active,1.0,GBP
+EMP-000140,James,Brown,james.brown.140@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L4,LOC-US-NYC,EMP-000067,2020-11-21,Active,1.0,USD
+EMP-000141,Shannon,Martin,shannon.martin.141@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-US-SF,EMP-000093,2023-01-23,Active,1.0,USD
+EMP-000142,Susan,Huang,susan.huang.142@yottaflex.ai,Sales,ROLE-AE,LVL-L3,LOC-US-NYC,EMP-000137,2023-10-27,Active,1.0,USD
+EMP-000143,Omar,Hall,omar.hall.143@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-US-SF,EMP-000102,2022-04-29,Active,1.0,USD
+EMP-000144,Stacey,Humphrey,stacey.humphrey.144@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L5,LOC-UK-LON,EMP-000118,2020-02-25,Active,1.0,GBP
+EMP-000145,Paul,Mason,paul.mason.145@yottaflex.ai,Engineering,ROLE-QA,LVL-L3,LOC-US-NYC,EMP-000120,2026-02-12,Active,1.0,USD
+EMP-000146,Antonio,Reid,antonio.reid.146@yottaflex.ai,Product,ROLE-PM,LVL-L5,LOC-DE-BER,EMP-000130,2020-12-12,Active,1.0,EUR
+EMP-000147,Ethan,Cook,ethan.cook.147@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L4,LOC-IN-BLR,EMP-000130,2024-09-01,Active,1.0,INR
+EMP-000148,Harry,Jackson,harry.jackson.148@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-IN-BLR,EMP-000130,2021-04-01,Active,0.8,INR
+EMP-000149,Thomas,Willis,thomas.willis.149@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000098,2026-05-28,Active,1.0,INR
+EMP-000150,Crystal,Mccormick,crystal.mccormick.150@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-US-NYC,EMP-000076,2026-06-24,Active,1.0,USD
+EMP-000151,Jillian,Andersen,jillian.andersen.151@yottaflex.ai,Product,ROLE-PM,LVL-L2,LOC-SG-SIN,EMP-000030,2020-05-07,Active,1.0,SGD
+EMP-000152,Lisa,Travis,lisa.travis.152@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L1,LOC-UK-LON,EMP-000070,2022-09-01,Active,1.0,GBP
+EMP-000153,Jennifer,Collins,jennifer.collins.153@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L3,LOC-US-SF,EMP-000005,2024-12-04,Active,1.0,USD
+EMP-000154,James,Scott,james.scott.154@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L1,LOC-US-SF,EMP-000140,2022-07-19,Active,1.0,USD
+EMP-000155,Amanda,Harmon,amanda.harmon.155@yottaflex.ai,Finance,ROLE-FIN,LVL-L4,LOC-US-AUS,EMP-000102,2026-05-16,Active,1.0,USD
+EMP-000156,Bryan,Waters,bryan.waters.156@yottaflex.ai,Product,ROLE-UXRES,LVL-L3,LOC-US-NYC,EMP-000096,2023-12-05,Active,1.0,USD
+EMP-000157,Ryan,Jones,ryan.jones.157@yottaflex.ai,Sales,ROLE-AE,LVL-L5,LOC-US-AUS,EMP-000130,2023-08-18,Active,1.0,USD
+EMP-000158,Monica,Conway,monica.conway.158@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-US-AUS,EMP-000129,2020-09-11,Active,1.0,USD
+EMP-000159,Patricia,Perez,patricia.perez.159@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L2,LOC-IN-BLR,EMP-000105,2021-02-09,Active,1.0,INR
+EMP-000160,Amy,Williams,amy.williams.160@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-US-NYC,EMP-000055,2025-04-01,Active,1.0,USD
+EMP-000161,Allison,Simon,allison.simon.161@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-DE-BER,EMP-000086,2024-01-18,Active,1.0,EUR
+EMP-000162,Allison,Thornton,allison.thornton.162@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-SF,EMP-000071,2022-08-11,Active,1.0,USD
+EMP-000163,Robert,Baker,robert.baker.163@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L3,LOC-SG-SIN,EMP-000090,2021-11-30,Active,1.0,SGD
+EMP-000164,Sarah,Olsen,sarah.olsen.164@yottaflex.ai,Sales,ROLE-CSM,LVL-L1,LOC-DE-BER,EMP-000057,2020-12-09,Active,1.0,EUR
+EMP-000165,Nicholas,Chapman,nicholas.chapman.165@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-US-SF,EMP-000055,2025-01-31,Active,1.0,USD
+EMP-000166,Vernon,Thomas,vernon.thomas.166@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-US-AUS,EMP-000067,2021-06-04,Active,1.0,USD
+EMP-000167,Jesse,Bennett,jesse.bennett.167@yottaflex.ai,Engineering,ROLE-QA,LVL-L1,LOC-US-AUS,EMP-000076,2024-06-22,Active,1.0,USD
+EMP-000168,Mikayla,Rojas,mikayla.rojas.168@yottaflex.ai,Engineering,ROLE-QA,LVL-L5,LOC-US-NYC,EMP-000055,2020-11-24,Active,0.8,USD
+EMP-000169,Ashley,Gentry,ashley.gentry.169@yottaflex.ai,Engineering,ROLE-SWE,LVL-L5,LOC-US-SF,EMP-000130,2020-04-26,Active,1.0,USD
+EMP-000170,Angela,Mccoy,angela.mccoy.170@yottaflex.ai,Sales,ROLE-CSM,LVL-L2,LOC-US-NYC,EMP-000143,2021-07-17,Active,1.0,USD
+EMP-000171,Richard,Foster,richard.foster.171@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-JP-TYO,EMP-000071,2020-08-30,Active,1.0,JPY
+EMP-000172,Eric,Jackson,eric.jackson.172@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-SF,EMP-000140,2024-08-06,Active,1.0,USD
+EMP-000173,Caitlin,Jackson,caitlin.jackson.173@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-NYC,EMP-000155,2020-12-06,Active,1.0,USD
+EMP-000174,Roger,Ferrell,roger.ferrell.174@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-US-AUS,EMP-000064,2024-07-06,Active,1.0,USD
+EMP-000175,Danielle,Diaz,danielle.diaz.175@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L1,LOC-US-AUS,EMP-000039,2026-02-20,Active,0.8,USD
+EMP-000176,Karen,Johnson,karen.johnson.176@yottaflex.ai,Sales,ROLE-CSM,LVL-L3,LOC-US-NYC,EMP-000093,2024-10-06,Active,0.8,USD
+EMP-000177,Cindy,Baker,cindy.baker.177@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L4,LOC-US-AUS,EMP-000168,2020-09-11,Active,0.8,USD
+EMP-000178,Lucas,Lopez,lucas.lopez.178@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L3,LOC-US-NYC,EMP-000177,2021-05-31,Active,1.0,USD
+EMP-000179,Justin,Hendricks,justin.hendricks.179@yottaflex.ai,Engineering,ROLE-QA,LVL-L1,LOC-US-NYC,EMP-000061,2019-05-31,Active,1.0,USD
+EMP-000180,Kristine,Taylor,kristine.taylor.180@yottaflex.ai,AI Research,ROLE-DATASCI,LVL-L3,LOC-US-SF,EMP-000139,2021-02-07,Active,1.0,USD
+EMP-000181,Donna,Smith,donna.smith.181@yottaflex.ai,Product,ROLE-PM,LVL-L3,LOC-UK-LON,EMP-000061,2022-08-21,Active,1.0,GBP
+EMP-000182,Monica,Patterson,monica.patterson.182@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-US-AUS,EMP-000155,2022-08-30,Active,1.0,USD
+EMP-000183,Patty,Castaneda,patty.castaneda.183@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-SG-SIN,EMP-000147,2025-08-15,Active,1.0,SGD
+EMP-000184,Jesse,Ponce,jesse.ponce.184@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L2,LOC-DE-BER,EMP-000177,2022-08-28,Active,1.0,EUR
+EMP-000185,Mark,Campbell,mark.campbell.185@yottaflex.ai,People & HR,ROLE-HRBP,LVL-L3,LOC-IN-BLR,EMP-000169,2022-08-11,Active,1.0,INR
+EMP-000186,George,Hunt,george.hunt.186@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000005,2022-08-24,Active,1.0,INR
+EMP-000187,Joshua,Davis,joshua.davis.187@yottaflex.ai,People & HR,ROLE-TA,LVL-L1,LOC-US-SF,EMP-000139,2020-10-12,Active,1.0,USD
+EMP-000188,James,Harris,james.harris.188@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-IN-BLR,EMP-000105,2022-04-08,Active,1.0,INR
+EMP-000189,Lauren,Porter,lauren.porter.189@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L4,LOC-US-AUS,EMP-000096,2025-03-10,Active,0.8,USD
+EMP-000190,Nicholas,Keith,nicholas.keith.190@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000030,2026-06-09,Active,1.0,INR
+EMP-000191,Lorraine,Taylor,lorraine.taylor.191@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-IN-BLR,EMP-000070,2021-03-04,Active,1.0,INR
+EMP-000192,Brianna,Benjamin,brianna.benjamin.192@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-US-SF,EMP-000168,2023-04-04,Active,1.0,USD
+EMP-000193,Anna,Thornton,anna.thornton.193@yottaflex.ai,Product,ROLE-PM,LVL-L2,LOC-US-NYC,EMP-000070,2022-09-30,Active,1.0,USD
+EMP-000194,Erica,Mclean,erica.mclean.194@yottaflex.ai,Sales,ROLE-CSM,LVL-L3,LOC-US-NYC,EMP-000061,2023-05-07,Active,1.0,USD
+EMP-000195,Nancy,Stewart,nancy.stewart.195@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-US-NYC,EMP-000168,2019-07-24,Active,1.0,USD
+EMP-000196,Matthew,Hall,matthew.hall.196@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-US-AUS,EMP-000010,2020-09-05,Active,1.0,USD
+EMP-000197,George,Walker,george.walker.197@yottaflex.ai,Product,ROLE-PRODDES,LVL-L1,LOC-US-SF,EMP-000093,2019-07-12,Active,1.0,USD
+EMP-000198,Krista,Franklin,krista.franklin.198@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L5,LOC-US-SF,EMP-000096,2020-07-12,Active,1.0,USD
+EMP-000199,Jennifer,Smith,jennifer.smith.199@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L1,LOC-IN-BLR,EMP-000086,2025-12-16,Active,1.0,INR
+EMP-000200,Anita,Terry,anita.terry.200@yottaflex.ai,AI Research,ROLE-MLE,LVL-L4,LOC-US-SF,EMP-000169,2022-04-24,Active,1.0,USD
+EMP-000201,Erica,Burke,erica.burke.201@yottaflex.ai,Product,ROLE-PRODDES,LVL-L1,LOC-US-SF,EMP-000136,2024-07-07,Active,1.0,USD
+EMP-000202,Joseph,Adams,joseph.adams.202@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L4,LOC-US-NYC,EMP-000157,2024-05-19,Active,1.0,USD
+EMP-000203,Lauren,Keith,lauren.keith.203@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-SG-SIN,EMP-000058,2025-05-02,Active,1.0,SGD
+EMP-000204,Cynthia,Gates,cynthia.gates.204@yottaflex.ai,Finance,ROLE-FIN,LVL-L2,LOC-US-AUS,EMP-000067,2019-05-16,Active,0.5,USD
+EMP-000205,Eric,Williams,eric.williams.205@yottaflex.ai,Finance,ROLE-FIN,LVL-L2,LOC-DE-BER,EMP-000096,2025-11-26,Active,0.8,EUR
+EMP-000206,Matthew,Estrada,matthew.estrada.206@yottaflex.ai,Engineering,ROLE-QA,LVL-L2,LOC-DE-BER,EMP-000048,2025-02-28,Active,1.0,EUR
+EMP-000207,Elaine,Mcneil,elaine.mcneil.207@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-US-AUS,EMP-000146,2024-03-31,Active,1.0,USD
+EMP-000208,Carolyn,Powell,carolyn.powell.208@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-IN-BLR,EMP-000051,2024-05-19,Active,1.0,INR
+EMP-000209,Jean,Warren,jean.warren.209@yottaflex.ai,People & HR,ROLE-TA,LVL-L3,LOC-US-AUS,EMP-000119,2025-08-05,Active,1.0,USD
+EMP-000210,Katelyn,Wolf,katelyn.wolf.210@yottaflex.ai,Product,ROLE-PM,LVL-L4,LOC-US-AUS,EMP-000090,2019-03-25,Active,1.0,USD
+EMP-000211,Monica,Jackson,monica.jackson.211@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L3,LOC-JP-TYO,EMP-000070,2021-09-06,Active,1.0,JPY
+EMP-000212,Rick,Adams,rick.adams.212@yottaflex.ai,Engineering,ROLE-DEVOPS,LVL-L2,LOC-IN-BLR,EMP-000157,2019-10-03,Active,0.8,INR
+EMP-000213,Scott,Castro,scott.castro.213@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L6,LOC-US-SF,,2023-08-19,Active,1.0,USD
+EMP-000214,Shirley,Leonard,shirley.leonard.214@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-US-AUS,EMP-000160,2021-07-03,Active,1.0,USD
+EMP-000215,Larry,Sullivan,larry.sullivan.215@yottaflex.ai,Engineering,ROLE-SWE,LVL-L1,LOC-DE-BER,EMP-000213,2025-03-26,Active,1.0,EUR
+EMP-000216,Amy,Todd,amy.todd.216@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-IN-BLR,EMP-000102,2020-09-26,Active,1.0,INR
+EMP-000217,Theresa,Wright,theresa.wright.217@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-US-NYC,EMP-000080,2024-05-04,Active,1.0,USD
+EMP-000218,Christopher,Schmidt,christopher.schmidt.218@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-IN-BLR,EMP-000157,2023-11-14,Active,1.0,INR
+EMP-000219,Stephanie,Nelson,stephanie.nelson.219@yottaflex.ai,Product,ROLE-PRODDES,LVL-L2,LOC-US-NYC,EMP-000058,2023-09-29,Active,1.0,USD
+EMP-000220,Jessica,Garcia,jessica.garcia.220@yottaflex.ai,Engineering,ROLE-SWE,LVL-L1,LOC-DE-BER,EMP-000169,2021-03-04,Active,1.0,EUR
+EMP-000221,James,Gordon,james.gordon.221@yottaflex.ai,AI Research,ROLE-MLE,LVL-L5,LOC-US-NYC,EMP-000055,2022-11-17,Active,0.8,USD
+EMP-000222,Jennifer,Stone,jennifer.stone.222@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L2,LOC-US-SF,EMP-000127,2020-09-21,Active,1.0,USD
+EMP-000223,Jeffery,Walker,jeffery.walker.223@yottaflex.ai,AI Research,ROLE-MLE,LVL-L1,LOC-US-NYC,EMP-000064,2021-05-20,Active,1.0,USD
+EMP-000224,Ashley,Griffin,ashley.griffin.224@yottaflex.ai,AI Research,ROLE-MLE,LVL-L2,LOC-SG-SIN,EMP-000070,2022-01-05,Active,1.0,SGD
+EMP-000225,Curtis,Combs,curtis.combs.225@yottaflex.ai,Product,ROLE-PRODDES,LVL-L3,LOC-US-AUS,EMP-000118,2025-08-28,Active,0.8,USD
+EMP-000226,Angela,Jones,angela.jones.226@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-SF,EMP-000051,2019-10-21,Active,1.0,USD
+EMP-000227,Dakota,Hurst,dakota.hurst.227@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L2,LOC-SG-SIN,EMP-000010,2020-07-22,Active,0.5,SGD
+EMP-000228,Jodi,Carrillo,jodi.carrillo.228@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-US-SF,EMP-000160,2020-05-15,Active,1.0,USD
+EMP-000229,Kimberly,Bell,kimberly.bell.229@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L3,LOC-US-SF,EMP-000051,2021-01-07,Active,1.0,USD
+EMP-000230,Lindsay,Stark,lindsay.stark.230@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-US-SF,EMP-000038,2021-01-20,Active,1.0,USD
+EMP-000231,Kimberly,Warren,kimberly.warren.231@yottaflex.ai,Product,ROLE-UXRES,LVL-L2,LOC-US-NYC,EMP-000128,2024-08-19,Active,1.0,USD
+EMP-000232,Daniel,Lyons,daniel.lyons.232@yottaflex.ai,Engineering,ROLE-QA,LVL-L2,LOC-US-NYC,EMP-000002,2025-06-26,Active,1.0,USD
+EMP-000233,John,Knight,john.knight.233@yottaflex.ai,AI Research,ROLE-FDAIE,LVL-L3,LOC-UK-LON,EMP-000096,2021-04-23,Active,1.0,GBP
+EMP-000234,Michael,Dickerson,michael.dickerson.234@yottaflex.ai,Sales,ROLE-CSM,LVL-L3,LOC-US-NYC,EMP-000015,2019-11-05,Active,1.0,USD
+EMP-000235,Mary,Taylor,mary.taylor.235@yottaflex.ai,Engineering,ROLE-DATAENG,LVL-L2,LOC-US-NYC,EMP-000105,2024-09-20,Active,1.0,USD
+EMP-000236,Charles,Avila,charles.avila.236@yottaflex.ai,Sales,ROLE-CSM,LVL-L1,LOC-US-NYC,EMP-000129,2019-02-22,Active,1.0,USD
+EMP-000237,Donna,Robinson,donna.robinson.237@yottaflex.ai,Engineering,ROLE-SWE,LVL-L4,LOC-SG-SIN,EMP-000039,2026-06-18,Active,1.0,SGD
+EMP-000238,Christopher,Arias,christopher.arias.238@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-UK-LON,EMP-000015,2019-09-29,Active,1.0,GBP
+EMP-000239,Carrie,Moody,carrie.moody.239@yottaflex.ai,Product,ROLE-PRODDES,LVL-L1,LOC-US-NYC,EMP-000010,2021-10-10,Active,1.0,USD
+EMP-000240,Emily,Holland,emily.holland.240@yottaflex.ai,Engineering,ROLE-SWE,LVL-L3,LOC-UK-LON,EMP-000118,2022-01-18,Active,1.0,GBP
+EMP-000241,Anna,Dillon,anna.dillon.241@yottaflex.ai,AI Research,ROLE-AIRES,LVL-L4,LOC-US-AUS,EMP-000160,2019-10-28,Active,0.8,USD
+EMP-000242,Pamela,Bradley,pamela.bradley.242@yottaflex.ai,Sales,ROLE-AE,LVL-L5,LOC-IN-BLR,EMP-000213,2026-01-30,Active,1.0,INR
+EMP-000243,Sean,Mcmahon,sean.mcmahon.243@yottaflex.ai,Product,ROLE-PM,LVL-L5,LOC-US-AUS,EMP-000118,2023-03-18,Active,0.8,USD
+EMP-000244,Jacqueline,Rodriguez,jacqueline.rodriguez.244@yottaflex.ai,Product,ROLE-PRODDES,LVL-L3,LOC-US-NYC,EMP-000118,2021-01-18,Active,1.0,USD
+EMP-000245,Sharon,Decker,sharon.decker.245@yottaflex.ai,Product,ROLE-PM,LVL-L2,LOC-US-AUS,EMP-000005,2023-04-17,Active,1.0,USD
+EMP-000246,Christopher,Rodriguez,christopher.rodriguez.246@yottaflex.ai,Engineering,ROLE-SWE,LVL-L2,LOC-US-SF,EMP-000071,2023-02-23,Active,1.0,USD
+EMP-000247,Robin,Hanson,robin.hanson.247@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000198,2021-10-03,Active,1.0,INR
+EMP-000248,Melissa,Turner,melissa.turner.248@yottaflex.ai,Engineering,ROLE-QA,LVL-L4,LOC-US-AUS,EMP-000102,2019-07-13,Active,1.0,USD
+EMP-000249,Mason,Conner,mason.conner.249@yottaflex.ai,Product,ROLE-PM,LVL-L1,LOC-DE-BER,EMP-000118,2021-10-02,Active,1.0,EUR
+EMP-000250,Alexandra,Aguilar,alexandra.aguilar.250@yottaflex.ai,AI Research,ROLE-MLE,LVL-L3,LOC-IN-BLR,EMP-000168,2023-10-04,Active,0.8,INR

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Salary History Timeline{% endblock %}
+{% block header_title %}Historical Compensation Records{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Filters Toolbar -->
+  <div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-body p-3">
+      <form method="GET" action="/salary-history" class="row g-2 align-items-center">
+        <div class="col-md-5">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+            <input type="text" name="emp_id" class="form-control" placeholder="Search by Employee ID (e.g. EMP-000001)..." value="{{ emp_id }}">
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <select name="currency" class="form-select form-select-sm">
+            <option value="">All Currencies</option>
+            <option value="USD" {% if currency == 'USD' %}selected{% endif %}>USD ($)</option>
+            <option value="EUR" {% if currency == 'EUR' %}selected{% endif %}>EUR (€)</option>
+            <option value="GBP" {% if currency == 'GBP' %}selected{% endif %}>GBP (£)</option>
+            <option value="INR" {% if currency == 'INR' %}selected{% endif %}>INR (₹)</option>
+            <option value="JPY" {% if currency == 'JPY' %}selected{% endif %}>JPY (¥)</option>
+            <option value="CHF" {% if currency == 'CHF' %}selected{% endif %}>CHF (Case 3 Missing FX)</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 d-flex gap-2">
+          <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+          <a href="/salary-history" class="btn btn-sm btn-outline-secondary">Reset</a>
+          <a href="/api/v1/export/salary-history/csv" class="btn btn-sm btn-outline-primary ms-auto">
+            <i class="bi bi-download"></i> Export CSV
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Salary History Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <div>
+        <h6 class="fw-bold mb-0">Total Salary Records: {{ "{:,}".format(total_count) }}</h6>
+        <span class="text-muted small">Showing page {{ page }} of {{ total_pages }}</span>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Record ID</th>
+            <th>Employee</th>
+            <th>Effective Date</th>
+            <th>Nominal Amount</th>
+            <th>Currency</th>
+            <th>FTE</th>
+            <th>Normalized (FTE 1.0)</th>
+            <th>Compa-Ratio</th>
+            <th>Within-Band Pos</th>
+            <th>Band Status</th>
+            <th>State</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in records %}
+          <tr>
+            <td class="small fw-semibold text-secondary">{{ r.id }}</td>
+            <td>
+              <a href="/employees/{{ r.employee_id }}" class="fw-bold text-decoration-none">
+                {{ r.employee.full_name if r.employee else r.employee_id }}
+              </a>
+              <div class="text-muted small">{{ r.employee_id }}</div>
+            </td>
+            <td>{{ r.effective_date.strftime('%B %Y') }}</td>
+            <td class="fw-bold">{{ r.currency }} {{ "{:,.2f}".format(r.amount) }}</td>
+            <td><span class="badge badge-soft-secondary">{{ r.currency }}</span></td>
+            <td>{{ r.fte }}</td>
+            <td>
+              {% if r.normalized_salary %}
+              ${{ "{:,.2f}".format(r.normalized_salary) }}
+              {% else %}
+              <span class="badge badge-soft-danger">Missing FX Rate (Case 3)</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if r.compa_ratio %}
+              {{ r.compa_ratio }}%
+              {% else %}
+              N/A
+              {% endif %}
+            </td>
+            <td>
+              {% if r.within_band_position %}
+              {{ r.within_band_position }}%
+              {% else %}
+              N/A
+              {% endif %}
+            </td>
+            <td>
+              {% if r.band_status == 'WITHIN_BAND' %}
+              <span class="badge badge-soft-success">Within Band</span>
+              {% elif r.band_status == 'BELOW_MINIMUM' %}
+              <span class="badge badge-soft-warning">Below Min</span>
+              {% elif r.band_status == 'EXPIRED_BAND' %}
+              <span class="badge badge-soft-danger">Expired Band (Case 1)</span>
+              {% else %}
+              <span class="badge badge-soft-secondary">{{ r.band_status }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if r.is_current %}
+              <span class="badge bg-primary">Active</span>
+              {% else %}
+              <span class="text-muted small">Historical</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <div class="p-3 border-top d-flex justify-content-between align-items-center">
+      <span class="text-muted small">Page {{ page }} of {{ total_pages }}</span>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          {% if page > 1 %}
+          <li class="page-item"><a class="page-link" href="/salary-history?page={{ page - 1 }}&emp_id={{ emp_id }}&currency={{ currency }}">Previous</a></li>
+          {% endif %}
+          <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+          {% if page < total_pages %}
+          <li class="page-item"><a class="page-link" href="/salary-history?page={{ page + 1 }}&emp_id={{ emp_id }}&currency={{ currency }}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

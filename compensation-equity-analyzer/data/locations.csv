@@ -1,0 +1,9 @@
+id,code,city,country,region,cost_of_living_index,default_currency
+LOC-US-NYC,US-NYC,New York,United States,Americas,1.25,USD
+LOC-US-SF,US-SF,San Francisco,United States,Americas,1.3,USD
+LOC-US-AUS,US-AUS,Austin,United States,Americas,1.0,USD
+LOC-UK-LON,UK-LON,London,United Kingdom,EMEA,1.15,GBP
+LOC-DE-BER,DE-BER,Berlin,Germany,EMEA,1.05,EUR
+LOC-IN-BLR,IN-BLR,Bengaluru,India,APAC,0.4,INR
+LOC-JP-TYO,JP-TYO,Tokyo,Japan,APAC,0.95,JPY
+LOC-SG-SIN,SG-SIN,Singapore,Singapore,APAC,1.12,SGD

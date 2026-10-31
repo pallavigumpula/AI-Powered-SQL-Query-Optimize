@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Compensation Bands{% endblock %}
+{% block header_title %}Salary Band Architecture{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+
+  <!-- Filters Toolbar -->
+  <div class="card border-0 shadow-sm rounded-3 mb-4">
+    <div class="card-body p-3">
+      <form method="GET" action="/compensation-bands" class="row g-2 align-items-center">
+        <div class="col-md-3">
+          <select name="role_id" class="form-select form-select-sm">
+            <option value="">All Roles</option>
+            {% for r in roles %}
+            <option value="{{ r.id }}" {% if filters.role_id == r.id %}selected{% endif %}>{{ r.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <select name="level_id" class="form-select form-select-sm">
+            <option value="">All Levels</option>
+            {% for l in levels %}
+            <option value="{{ l.id }}" {% if filters.level_id == l.id %}selected{% endif %}>{{ l.code }} - {{ l.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <select name="location_id" class="form-select form-select-sm">
+            <option value="">All Locations</option>
+            {% for loc in locations %}
+            <option value="{{ loc.id }}" {% if filters.location_id == loc.id %}selected{% endif %}>{{ loc.city }} ({{ loc.code }})</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <select name="is_active" class="form-select form-select-sm">
+            <option value="">All Statuses</option>
+            <option value="True" {% if filters.is_active == 'True' %}selected{% endif %}>Active Bands</option>
+            <option value="False" {% if filters.is_active == 'False' %}selected{% endif %}>Expired Bands (Case 1)</option>
+          </select>
+        </div>
+
+        <div class="col-md-1 d-flex gap-1">
+          <button type="submit" class="btn btn-sm btn-primary w-100">Filter</button>
+          <a href="/compensation-bands" class="btn btn-sm btn-outline-secondary">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Compensation Bands Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <div>
+        <h6 class="fw-bold mb-0">Total Compensation Bands: {{ "{:,}".format(total_count) }}</h6>
+        <span class="text-muted small">Role &times; Level &times; Location Architecture</span>
+      </div>
+      <a href="/api/v1/export/bands/csv" class="btn btn-sm btn-outline-primary">
+        <i class="bi bi-download me-1"></i> Export Bands CSV
+      </a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Band ID</th>
+            <th>Role & Job Family</th>
+            <th>Level</th>
+            <th>Location & COL</th>
+            <th>Band Minimum</th>
+            <th>Band Midpoint</th>
+            <th>Band Maximum</th>
+            <th>Spread %</th>
+            <th>Effective Dates</th>
+            <th>Lifecycle</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in bands %}
+          <tr>
+            <td class="fw-bold">{{ b.id }}</td>
+            <td>
+              <div>{{ b.role.name if b.role else 'N/A' }}</div>
+              <small class="text-muted">{{ b.role.job_family if b.role else '' }}</small>
+            </td>
+            <td><span class="badge badge-soft-info">{{ b.level.code }}</span></td>
+            <td>
+              <div>{{ b.location.city if b.location else 'N/A' }}</div>
+              <small class="text-muted">COL: {{ b.location.cost_of_living_index if b.location else 1.0 }}x</small>
+            </td>
+            <td>${{ "{:,.0f}".format(b.min_salary) }}</td>
+            <td class="fw-bold text-primary">${{ "{:,.0f}".format(b.mid_salary) }}</td>
+            <td>${{ "{:,.0f}".format(b.max_salary) }}</td>
+            <td><span class="badge badge-soft-secondary">{{ b.spread_percentage }}%</span></td>
+            <td class="small">{{ b.effective_from.strftime('%Y-%m-%d') }} to {{ b.effective_to.strftime('%Y-%m-%d') }}</td>
+            <td>
+              {% if b.is_active %}
+              <span class="badge badge-soft-success">Active</span>
+              {% else %}
+              <span class="badge badge-soft-danger">Expired (Case 1)</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <div class="p-3 border-top d-flex justify-content-between align-items-center">
+      <span class="text-muted small">Page {{ page }} of {{ total_pages }}</span>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          {% if page > 1 %}
+          <li class="page-item">
+            <a class="page-link" href="/compensation-bands?page={{ page - 1 }}&role_id={{ filters.role_id }}&level_id={{ filters.level_id }}&location_id={{ filters.location_id }}&is_active={{ filters.is_active }}">Previous</a>
+          </li>
+          {% endif %}
+          <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+          {% if page < total_pages %}
+          <li class="page-item">
+            <a class="page-link" href="/compensation-bands?page={{ page + 1 }}&role_id={{ filters.role_id }}&level_id={{ filters.level_id }}&location_id={{ filters.location_id }}&is_active={{ filters.is_active }}">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
